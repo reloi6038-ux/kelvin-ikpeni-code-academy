@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <title>Profile — Kelvin Ikpeni Code Academy</title>
+  <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="/js/theme.js"></script>
+</head>
+<body data-page="profile">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="section container">
+      <header class="section-header">
+        <p class="eyebrow">Account</p>
+        <h1>Your Profile</h1>
+        <p>Manage your account details and preferences.</p>
+      </header>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h3 class="card-title">Profile details</h3>
+          <form class="form" id="profileForm">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input class="input" id="fullName" name="fullName" type="text" placeholder="Your name" required minlength="2" />
+              <span class="field-error" data-error-for="name"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" placeholder="you@example.com" disabled />
+              <span class="field-hint">Email cannot be changed. Contact support if needed.</span>
+            </div>
+            <div class="field">
+              <label for="bio">Bio</label>
+              <textarea class="textarea" id="bio" name="bio" placeholder="Tell us about yourself" maxlength="500"></textarea>
+              <span class="field-error" data-error-for="bio"></span>
+            </div>
+            <button class="btn btn-primary" type="submit" id="save-btn">Save Changes</button>
+          </form>
+        </div>
+
+        <aside class="sidebar-card">
+          <h3>Change Password</h3>
+          <p class="card-text">Update your password below. You'll need to re-login after changing it.</p>
+          <form class="form" id="passwordForm" style="margin-top:1rem;">
+            <div class="field">
+              <label for="currentPassword">Current password</label>
+              <input class="input" id="currentPassword" name="currentPassword" type="password" required />
+              <span class="field-error" data-error-for="currentPassword"></span>
+            </div>
+            <div class="field">
+              <label for="newPassword">New password</label>
+              <input class="input" id="newPassword" name="newPassword" type="password" required minlength="8" />
+              <span class="field-hint">At least 8 characters.</span>
+              <span class="field-error" data-error-for="newPassword"></span>
+            </div>
+            <button class="btn btn-ghost btn-block" type="submit" id="pw-btn">Change Password</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/partials.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/profile.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

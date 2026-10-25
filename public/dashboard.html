@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <title>Dashboard — Kelvin Ikpeni Code Academy</title>
+  <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="/js/theme.js"></script>
+</head>
+<body data-page="dashboard">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="section container">
+      
+      <header class="section-header">
+        <p class="eyebrow">Welcome back</p>
+        <h1>Your Learning Dashboard</h1>
+        <p>Track your courses, exercises, projects, and certificates.</p>
+      </header>
+
+      <!-- Stats Grid -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <h4>Enrolled</h4>
+          <strong id="stat-enrolled">0</strong>
+          <small>courses</small>
+        </div>
+        <div class="stat-card">
+          <h4>Lessons</h4>
+          <strong id="stat-lessons">0</strong>
+          <small>completed</small>
+        </div>
+        <div class="stat-card">
+          <h4>Exercises</h4>
+          <strong>0</strong>
+          <small>solved</small>
+        </div>
+        <div class="stat-card">
+          <h4>Certificates</h4>
+          <strong id="stat-certificates">0</strong>
+          <small>earned</small>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Content -->
+      <div class="dashboard-grid">
+        <div>
+          <h2>Current Courses</h2>
+          <!-- Dynamic Courses go here -->
+          <div class="course-list" id="enrolled-courses">
+            <p style="color:var(--color-text-muted)">Loading courses…</p>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-card">
+            <h3>Quick Actions</h3>
+            <div style="display:grid;gap:0.5rem;">
+              <a class="btn btn-primary btn-block" href="/courses.html">Browse Courses</a>
+              <a class="btn btn-ghost btn-block" href="/practice.html">Practice Exercises</a>
+              <a class="btn btn-ghost btn-block" href="/ide.html">Open IDE</a>
+              <a class="btn btn-ghost btn-block" href="/certificates.html">My Certificates</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/partials.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

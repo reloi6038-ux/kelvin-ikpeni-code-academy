@@ -1,0 +1,131 @@
+/* =========================================================
+   Kelvin Ikpeni Code Academy — Quiz Styles
+   ========================================================= */
+
+.quiz-shell {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.quiz-header {
+  margin-bottom: var(--space-5);
+}
+
+.quiz-meta {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-3);
+}
+
+.question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+  transition: border-color var(--transition-base);
+}
+
+.question-card.is-correct { border-color: var(--brand-success); }
+.question-card.is-wrong { border-color: var(--brand-danger); }
+
+.question-number {
+  color: var(--brand-accent);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.question-text {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 var(--space-4);
+  color: var(--color-text);
+}
+
+.options-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--color-surface-2);
+  transition: all var(--transition-fast);
+}
+
+.option:hover { border-color: var(--brand-1); background: var(--color-surface-3); }
+
+.option input { margin: 0; accent-color: var(--brand-1); }
+
+.option.selected { border-color: var(--brand-accent); background: rgba(34, 211, 238, 0.08); }
+.option.correct { border-color: var(--brand-success); background: rgba(34, 197, 94, 0.1); }
+.option.wrong { border-color: var(--brand-danger); background: rgba(239, 68, 68, 0.1); }
+
+.option-label { flex: 1; color: var(--color-text); }
+
+.question-explanation {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  border-left: 3px solid var(--brand-accent);
+}
+
+.quiz-result {
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.quiz-result.passed { border-color: var(--brand-success); background: rgba(34, 197, 94, 0.06); }
+.quiz-result.failed { border-color: var(--brand-danger); background: rgba(239, 68, 68, 0.06); }
+
+.quiz-result h2 { margin: 0 0 var(--space-2); font-size: var(--font-size-2xl); }
+
+.quiz-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.attempt-history {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.attempt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.attempt-row:last-child { border-bottom: 0; }
+
+.badge-pass { color: var(--brand-success); }
+.badge-fail { color: var(--brand-danger); }

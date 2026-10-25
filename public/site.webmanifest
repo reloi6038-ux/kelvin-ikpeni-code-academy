@@ -1,0 +1,85 @@
+{
+  "name": "Kelvin Ikpeni Code Academy",
+  "short_name": "KICA",
+  "description": "Learn to Code. Build to Lead. Master frontend and backend web development with structured courses, guided projects, an inbuilt coding IDE, and verifiable certificates.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "background_color": "#0b1020",
+  "theme_color": "#5b7cfa",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "developer"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/images/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Courses",
+      "short_name": "Courses",
+      "description": "Explore frontend and backend development courses.",
+      "url": "/courses.html",
+      "icons": [
+        {
+          "src": "/images/brand/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Coding Practice",
+      "short_name": "Practice",
+      "description": "Solve interactive coding exercises.",
+      "url": "/practice.html",
+      "icons": [
+        {
+          "src": "/images/brand/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "My Dashboard",
+      "short_name": "Dashboard",
+      "description": "Track your learning progress and certificates.",
+      "url": "/dashboard.html",
+      "icons": [
+        {
+          "src": "/images/brand/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Interactive IDE",
+      "short_name": "IDE",
+      "description": "Write and run HTML, CSS, and JavaScript in your browser.",
+      "url": "/ide.html",
+      "icons": [
+        {
+          "src": "/images/brand/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

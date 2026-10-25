@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <title>Task — Kelvin Ikpeni Code Academy</title>
+  <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/ide.css" />
+  <link rel="stylesheet" href="/css/projects.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/material-darker.min.css" />
+  <script src="/js/theme.js"></script>
+</head>
+<body data-page="projects">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="section container">
+      <p style="margin-bottom:1rem;">
+        <a id="back-link" href="/projects.html" style="color:var(--color-text-muted);">← Back</a>
+      </p>
+
+      <div class="task-shell">
+        <aside class="task-brief" id="task-brief">
+          <p style="color:var(--color-text-muted)">Loading task…</p>
+        </aside>
+
+        <div>
+          <div id="ide-mount"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/partials.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ide.js"></script>
+  <script src="/js/project-task.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

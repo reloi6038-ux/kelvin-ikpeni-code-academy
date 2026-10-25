@@ -1,0 +1,215 @@
+/* =========================================================
+   Kelvin Ikpeni Code Academy — IDE Styles
+   ========================================================= */
+
+.ide-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.ide-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ide-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+
+.ide-tab {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.ide-tab:hover { color: var(--color-text); background: var(--color-surface-3); }
+.ide-tab.active { color: var(--brand-accent); border-bottom-color: var(--brand-accent); background: var(--color-surface); }
+
+.ide-editor-wrap {
+  position: relative;
+  min-height: 340px;
+  flex: 1;
+}
+
+.ide-editor {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: #0A0F1C;
+  color: var(--color-text);
+  border: none;
+  resize: none;
+  padding: var(--space-4);
+  outline: none;
+  display: none;
+}
+
+.ide-editor.active { display: block; }
+
+/* CodeMirror overrides */
+.CodeMirror {
+  height: 340px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.875rem !important;
+  border: none !important;
+  background: #0A0F1C !important;
+  color: var(--color-text) !important;
+  line-height: 1.6 !important;
+}
+
+.CodeMirror-gutters {
+  background: #0F1423 !important;
+  border-right: 1px solid var(--color-border) !important;
+}
+
+.CodeMirror-linenumber {
+  color: #4B5563 !important;
+}
+
+.ide-preview {
+  width: 100%;
+  min-height: 420px;
+  border: none;
+  background: #ffffff;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.ide-actions {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-surface-2);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.ide-actions .btn { font-size: var(--font-size-sm); }
+
+.ide-status {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ide-status .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.ide-results {
+  margin-top: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.ide-results h3 { margin-top: 0; }
+
+.test-list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.test-case {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  font-size: var(--font-size-sm);
+}
+
+.test-case.passed { border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.08); }
+.test-case.failed { border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.08); }
+
+.test-icon {
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.test-case.passed .test-icon { color: var(--brand-success); }
+.test-case.failed .test-icon { color: var(--brand-danger); }
+
+.test-detail {
+  flex: 1;
+  color: var(--color-text);
+}
+
+.test-detail code {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-top: 0.25rem;
+  word-break: break-all;
+}
+
+/* Exercise layout */
+.exercise-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* Exercise description typography */
+.exercise-description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  margin-top: 0.75rem;
+}
+
+.exercise-description p { margin: 0 0 0.75rem; }
+.exercise-description ul,
+.exercise-description ol { margin: 0 0 0.75rem 1.25rem; padding: 0; }
+.exercise-description li { margin-bottom: 0.25rem; }
+.exercise-description code {
+  background: var(--color-surface-2);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: var(--brand-accent);
+}
+.exercise-description pre {
+  background: var(--color-surface-2);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+@media (max-width: 1100px) {
+  .exercise-layout { grid-template-columns: 1fr; }
+  .ide-layout { grid-template-columns: 1fr; }
+}

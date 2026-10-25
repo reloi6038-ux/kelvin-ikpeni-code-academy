@@ -1,0 +1,159 @@
+/* =========================================================
+   Kelvin Ikpeni Code Academy — Projects
+   ========================================================= */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.project-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  transition: all var(--transition-base);
+}
+
+.project-card:hover {
+  border-color: var(--brand-1);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.project-card .project-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.project-card.coming-soon {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.project-card.coming-soon::after {
+  content: "Coming Soon";
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--brand-accent);
+  background: rgba(34, 211, 238, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.task-list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-fast);
+}
+
+.task-item:hover {
+  border-color: var(--brand-1);
+  transform: translateX(2px);
+}
+
+.task-item .task-num {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--color-surface-2);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+}
+
+.task-item.completed .task-num {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--brand-success);
+}
+
+.task-item h4 {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.task-item p {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Project Task page */
+.task-shell {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.task-brief {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  position: sticky;
+  top: 80px;
+}
+
+.task-brief h1 {
+  font-size: 1.4rem;
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+.task-brief .task-description {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+}
+
+.task-brief .task-description code {
+  background: var(--color-surface-2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: var(--brand-accent);
+}
+
+.task-brief .task-description ul,
+.task-brief .task-description ol {
+  margin-left: 1.25rem;
+  padding: 0;
+}
+
+.task-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1000px) {
+  .task-shell {
+    grid-template-columns: 1fr;
+  }
+  .task-brief {
+    position: static;
+  }
+}

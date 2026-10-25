@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <title>Learning — Kelvin Ikpeni Code Academy</title>
+  <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="/js/theme.js"></script>
+</head>
+<body data-page="dashboard">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="section container">
+      <p style="margin-bottom:1rem;">
+        <a href="/dashboard.html" style="color:var(--color-text-muted);">← Back to dashboard</a>
+      </p>
+
+      <div class="dashboard-grid">
+        <article class="card" id="lesson-content">
+          <p style="color:var(--color-text-muted)">Loading lesson…</p>
+        </article>
+
+        <aside class="sidebar-card">
+          <h3>Course Progress</h3>
+          <div class="progress" style="margin-bottom:0.5rem;">
+            <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+          </div>
+          <p class="card-text" id="progress-text" style="margin-bottom:1rem;">0 lessons complete</p>
+
+          <hr style="border:none;border-top:1px solid var(--color-border);margin:1rem 0;" />
+
+          <h3>Lessons</h3>
+          <ul id="lesson-list" style="list-style:none;padding:0;margin:0;display:grid;gap:0.5rem;font-size:0.9rem;"></ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/partials.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/learning.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

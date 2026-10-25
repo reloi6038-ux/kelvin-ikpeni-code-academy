@@ -1,0 +1,234 @@
+/* =========================================================
+   Kelvin Ikpeni Code Academy — Components
+   ========================================================= */
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: var(--space-2);
+  padding: 0.65rem 1.25rem; 
+  border-radius: var(--radius-sm);
+  font-weight: 600; 
+  font-size: var(--font-size-sm);
+  border: 1px solid transparent; 
+  cursor: pointer; 
+  text-decoration: none; 
+  white-space: nowrap;
+  transition: transform var(--transition-fast), box-shadow var(--transition-base), background var(--transition-base);
+}
+
+.btn-primary {
+  background: var(--gradient-brand); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 28px rgba(91, 124, 250, 0.35);
+}
+.btn-primary:hover:not(:disabled) { 
+  transform: translateY(-1px); 
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 16px 40px rgba(91, 124, 250, 0.5); 
+}
+
+.btn-ghost {
+  background: transparent; color: var(--color-text); border-color: var(--color-border-strong);
+}
+.btn-ghost:hover:not(:disabled) { 
+  border-color: var(--brand-1); 
+  background: rgba(91, 124, 250, 0.06); 
+}
+
+.btn-block { width: 100%; }
+.btn-sm { padding: 0.45rem 0.85rem; font-size: var(--font-size-xs); }
+
+/* ---------- Top Nav ---------- */
+.nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: var(--space-4); 
+  padding: var(--space-3) 0; 
+}
+
+.brand { display: flex; align-items: center; gap: var(--space-2); }
+
+.brand-mark {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 12px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.02em;
+  color: #fff; background: var(--gradient-brand);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px rgba(91, 124, 250, 0.45);
+  flex-shrink: 0;
+}
+
+.brand-text strong { display: block; font-size: 0.95rem; font-weight: 700; }
+.brand-text em { 
+  display: block; font-style: normal; font-size: 0.72rem; 
+  color: var(--color-text-muted); letter-spacing: 0.06em; 
+  text-transform: uppercase; font-weight: 500; 
+}
+
+/* 
+  Nav Links Container 
+  - align-items: center fixes the vertical alignment of ALL children.
+*/
+.nav-links { 
+  display: flex; 
+  align-items: center; 
+  gap: var(--space-4); 
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+}
+
+.nav-links > li > a {
+  color: var(--color-text-muted); font-weight: 500; font-size: var(--font-size-sm);
+  padding: var(--space-2) 0; border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-links > li > a:hover, 
+.nav-links > li > a.is-active { 
+  color: var(--color-text); 
+  border-color: var(--brand-1); 
+}
+
+/* 
+  Auth Container (Login & Get Started)
+  - Display flex ensures they sit side-by-side.
+  - align-items: center guarantees the text baseline aligns with the button.
+*/
+.nav-auth, 
+.nav-account { 
+  display: flex; 
+  align-items: center; 
+  gap: var(--space-4); 
+}
+
+.is-hidden { display: none !important; }
+
+/* Hamburger Menu */
+.nav-toggle { 
+  display: none; 
+  flex-direction: column; 
+  justify-content: center; 
+  gap: 5px; 
+  width: 40px; 
+  height: 40px; 
+  padding: 0; 
+  border-radius: var(--radius-sm); 
+  background: var(--color-surface-2); 
+  border: 1px solid var(--color-border); 
+  cursor: pointer; 
+}
+
+.nav-toggle-bar { 
+  display: block; 
+  width: 20px; 
+  height: 2px; 
+  background: var(--color-text); 
+  border-radius: 2px; 
+  margin: 0 auto; 
+  transition: transform var(--transition-fast), opacity var(--transition-fast); 
+}
+
+.nav[data-menu-open="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav[data-menu-open="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav[data-menu-open="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative; background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  padding: var(--space-5); box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+[data-theme="dark"] .card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(91, 124, 250, 0.35), transparent); 
+  border-radius: var(--radius-md) var(--radius-md) 0 0; 
+  pointer-events: none;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px); 
+  border-color: var(--color-border-glow); 
+  box-shadow: var(--shadow-glow);
+}
+
+.card-grid {
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: var(--space-4);
+}
+
+.card-title { margin: 0 0 var(--space-2); font-size: var(--font-size-lg); font-weight: 700; letter-spacing: -0.01em; }
+.card-text { color: var(--color-text-muted); margin: 0; font-size: var(--font-size-sm); line-height: 1.65; }
+.card-meta { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); font-size: var(--font-size-xs); color: var(--color-text-subtle); }
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-block; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs); font-weight: 600; letter-spacing: 0.02em;
+  background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text-muted);
+}
+.badge-beginner     { color: #34d399; border-color: rgba(52, 211, 153, 0.35); background: rgba(52, 211, 153, 0.08); }
+.badge-intermediate { color: #fbbf24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+.badge-advanced     { color: #f87171; border-color: rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.08); }
+
+/* Mobile Nav */
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed; inset: 64px 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+    padding: var(--space-4); transform: translateY(-120%); transition: transform var(--transition-base);
+    max-height: calc(100vh - 64px); overflow-y: auto; box-shadow: var(--shadow-lg);
+  }
+  .nav[data-menu-open="true"] .nav-links { transform: translateY(0); }
+  .nav-links > li { border-bottom: 1px solid var(--color-border); }
+  .nav-links > li:last-child { border-bottom: 0; }
+  .nav-links > li > a { display: block; padding: var(--space-3) 0; border-bottom: none; }
+  
+  /* Reset auth containers to stack vertically on mobile */
+  .nav-auth, .nav-account { 
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: var(--space-2); 
+    padding: var(--space-3) 0; 
+  }
+}
+
+/* =========================================================
+   FIX: Nav "Get Started" override
+   (Removes the button background inside the nav)
+   ========================================================= */
+
+/* Target the Get Started link specifically inside the navigation */
+.nav-links .btn-primary {
+  background: transparent;
+  color: var(--color-text-muted);
+  box-shadow: none;
+  padding: var(--space-2) 0;
+  font-weight: 500;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  /* Ensure it behaves exactly like the text links */
+  display: inline-block;
+  font-size: var(--font-size-sm);
+}
+
+.nav-links .btn-primary:hover,
+.nav-links .btn-primary:focus-visible {
+  background: transparent;
+  color: var(--color-text);
+  box-shadow: none;
+  transform: none;
+  border-color: var(--brand-1);
+}
+
+/* Ensure the override still works correctly on mobile */
+@media (max-width: 900px) {
+  .nav-links .btn-primary {
+    padding: var(--space-3) 0;
+    display: block;
+  }
+}

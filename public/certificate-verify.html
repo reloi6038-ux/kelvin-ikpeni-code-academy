@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <title>Verify Certificate — Kelvin Ikpeni Code Academy</title>
+  <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/certificates.css" />
+  <script src="/js/theme.js"></script>
+</head>
+<body data-page="certificates">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="section container">
+      <div style="max-width:640px;margin:0 auto;">
+        <div class="card">
+          <h1 style="text-align:center;">Verify a Certificate</h1>
+          <p class="card-text" style="text-align:center;margin-bottom:1.5rem;">
+            Enter a certificate ID to confirm it's authentic.
+          </p>
+          <form id="verifyForm" class="form" novalidate>
+            <div class="field">
+              <label for="certId">Certificate ID</label>
+              <input class="input" id="certId" name="certId" placeholder="KICA-XXXX-XXXX" required />
+              <span class="field-hint">Found on the bottom of the certificate.</span>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit" id="verifyBtn">Verify</button>
+          </form>
+          <p style="text-align:center;font-size:0.85rem;color:var(--color-text-muted);margin-top:1rem;">
+            Have a public link? Open it directly in your browser.
+          </p>
+        </div>
+
+        <div id="verify-result" style="margin-top:2rem;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/partials.js"></script>
+  <script src="/js/certificate-verify.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

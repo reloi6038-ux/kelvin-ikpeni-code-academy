@@ -1,0 +1,40 @@
+<nav class="nav container" aria-label="Primary navigation">
+  <a class="brand" href="/" aria-label="Kelvin Ikpeni Code Academy — Home">
+    <span class="brand-mark" aria-hidden="true">KI</span>
+    <span class="brand-text">
+      <strong>Kelvin Ikpeni</strong>
+      <em>Code Academy</em>
+    </span>
+  </a>
+
+  <button
+    class="nav-toggle"
+    id="navToggle"
+    type="button"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="primaryMenu"
+  >
+    <span class="nav-toggle-bar" aria-hidden="true"></span>
+    <span class="nav-toggle-bar" aria-hidden="true"></span>
+    <span class="nav-toggle-bar" aria-hidden="true"></span>
+  </button>
+
+  <ul class="nav-links" id="primaryMenu">
+    <li><a href="/" data-nav="home">Home</a></li>
+    <li><a href="/courses.html" data-nav="courses">Courses</a></li>
+    <li><a href="/projects.html" data-nav="projects">Projects</a></li>
+    <li><a href="/practice.html" data-nav="practice">Practice</a></li>
+    <li><a href="/ide.html" data-nav="ide">IDE</a></li>
+    <li><a href="/certificates.html" data-nav="certificates">Certificates</a></li>
+    <li class="nav-auth">
+      <a href="/login.html" data-nav="login">Login</a>
+      <a class="btn btn-primary" href="/register.html" data-nav="register">Get Started</a>
+    </li>
+    <li class="nav-account is-hidden">
+      <a href="/dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a href="/profile.html" data-nav="profile">Profile</a>
+      <button type="button" class="btn btn-ghost" data-logout>Logout</button>
+    </li>
+  </ul>
+</nav>
