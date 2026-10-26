@@ -1,6 +1,7 @@
 /**
  * Kelvin Ikpeni Code Academy — Quiz seed
  * One quiz per course. Idempotent.
+ * Part 3: HTML Fundamentals expanded to 15 questions.
  */
 "use strict";
 
@@ -22,7 +23,7 @@ const quizzesByCourseSlug = {
           "Bundles JavaScript"
         ],
         correctIndex: 1,
-        explanation: "DNS is the phonebook of the internet — it maps human names (example.com) to IP addresses."
+        explanation: "DNS is the phonebook of the internet — it maps human names to IP addresses."
       },
       {
         question: "Which side stores the database in a typical web app?",
@@ -39,7 +40,7 @@ const quizzesByCourseSlug = {
           "A CSS framework"
         ],
         correctIndex: 1,
-        explanation: "APIs are the contract between the client and the server — what to send, what comes back."
+        explanation: "APIs are the contract between the client and the server."
       },
       {
         question: "Which protocol do modern websites use for secure communication?",
@@ -52,32 +53,133 @@ const quizzesByCourseSlug = {
 
   "html-fundamentals": {
     title: "HTML Fundamentals Final Quiz",
-    description: "Prove your understanding of HTML structure and semantic elements.",
+    description: "Prove your understanding of HTML structure, semantics, accessibility, and forms. 15 questions covering everything from the 7 lessons.",
     passPercent: 70,
     questions: [
       {
         question: "Which tag defines the largest heading?",
         options: ["<h6>", "<h1>", "<head>", "<header>"],
         correctIndex: 1,
-        explanation: "<h1> is the top-level heading."
+        explanation: "<h1> is the top-level heading. Headings go from <h1> (largest) to <h6> (smallest)."
       },
       {
-        question: "Which semantic element represents the main navigation of a page?",
+        question: "What does <!DOCTYPE html> do?",
+        options: [
+          "Creates a comment",
+          "Tells the browser to use modern HTML5 standards mode",
+          "Loads the CSS file",
+          "Defines the page title"
+        ],
+        correctIndex: 1,
+        explanation: "The doctype switches the browser into standards mode, avoiding quirks. Without it, browsers render in legacy mode."
+      },
+      {
+        question: "Which is a self-closing (empty) HTML element?",
+        options: ["<p>", "<img>", "<div>", "<h1>"],
+        correctIndex: 1,
+        explanation: "<img> is an empty element — it has no content and no closing tag. Others like <p> require </p>."
+      },
+      {
+        question: "Which semantic element represents the primary navigation of a page?",
         options: ["<menu>", "<nav>", "<aside>", "<section>"],
         correctIndex: 1,
-        explanation: "<nav> is the correct semantic element for navigation links."
+        explanation: "<nav> is the correct semantic element for navigation links, helping screen reader users jump to navigation."
       },
       {
-        question: "What does the <label> element primarily improve?",
-        options: ["SEO", "Accessibility", "Font size", "Speed"],
+        question: "Which element should contain the primary content of a page?",
+        options: ["<body>", "<main>", "<div id='content'>", "<article>"],
         correctIndex: 1,
-        explanation: "<label> associates descriptive text with form inputs, improving accessibility."
+        explanation: "<main> wraps the primary content — one per page, no repeated boilerplate. Screen readers can jump directly to it."
+      },
+      {
+        question: "Which element is self-contained content like a blog post?",
+        options: ["<section>", "<article>", "<div>", "<aside>"],
+        correctIndex: 1,
+        explanation: "<article> is for content that makes sense on its own — a post, a comment, a widget."
+      },
+      {
+        question: "Which meta tag is required for mobile responsiveness?",
+        options: [
+          "<meta charset='UTF-8'>",
+          "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+          "<meta name='description'>",
+          "<meta http-equiv='X-UA-Compatible'>"
+        ],
+        correctIndex: 1,
+        explanation: "The viewport meta tells mobile browsers to use the device's actual width instead of pretending to be 980px wide."
+      },
+      {
+        question: "Why should the <script> tag use the 'defer' attribute?",
+        options: [
+          "It makes scripts load faster",
+          "It prevents scripts from blocking HTML parsing",
+          "It caches scripts",
+          "It minifies scripts"
+        ],
+        correctIndex: 1,
+        explanation: "'defer' downloads the script in parallel but executes it after HTML is parsed, so the page renders without waiting for JS."
+      },
+      {
+        question: "Which is the correct way to include descriptive alt text for an image?",
+        options: [
+          '<img src="pic.jpg">',
+          '<img src="pic.jpg" alt="">',
+          '<img src="pic.jpg" alt="A sunset over the ocean">',
+          '<image src="pic.jpg" caption="sunset">'
+        ],
+        correctIndex: 2,
+        explanation: "Always include descriptive alt text. Use alt='' only for purely decorative images that add no information."
+      },
+      {
+        question: "Which is the correct way to link a <label> to an <input>?",
+        options: [
+          "Give them both the same class",
+          "Use label[for] matching input[id]",
+          "Wrap the label inside the input",
+          "Add a title attribute to both"
+        ],
+        correctIndex: 1,
+        explanation: "The label's 'for' attribute must match the input's 'id'. Clicking the label then focuses the input, and screen readers announce the association."
       },
       {
         question: "Which input type gives automatic email validation?",
         options: ['type="text"', 'type="email"', 'type="mail"', 'type="address"'],
         correctIndex: 1,
-        explanation: 'type="email" enables HTML5 email validation.'
+        explanation: 'type="email" enables HTML5 email validation — the browser blocks submission if the format is invalid.'
+      },
+      {
+        question: "Which tag groups related form inputs and their legend?",
+        options: ["<group>", "<fieldset>", "<section>", "<field-group>"],
+        correctIndex: 1,
+        explanation: "<fieldset> groups related form controls; use <legend> for the group label. Essential for accessible radio button groups."
+      },
+      {
+        question: "Which tag should be used for header cells in a table?",
+        options: ["<td>", "<th>", "<thead>", "<header>"],
+        correctIndex: 1,
+        explanation: "<th> marks a header cell. Screen readers use this to associate data cells with their column or row header."
+      },
+      {
+        question: "Why is descriptive link text important?",
+        options: [
+          "It looks better visually",
+          "Screen reader users often list all links out of context",
+          "It's required by HTML spec",
+          "It improves page load speed"
+        ],
+        correctIndex: 1,
+        explanation: "Screen reader users navigate by listing all links. 'Click here' gives no context — 'Read the documentation' tells them where they're going."
+      },
+      {
+        question: "What should you do before using ARIA attributes?",
+        options: [
+          "Use them for every element",
+          "Check that a native semantic HTML element doesn't already solve the problem",
+          "Add them only to <div> elements",
+          "Use ARIA on all buttons"
+        ],
+        correctIndex: 1,
+        explanation: "The first rule of ARIA is: don't use ARIA when native HTML works. <button> is better than <div role='button'>."
       }
     ]
   },
@@ -108,7 +210,7 @@ const quizzesByCourseSlug = {
           "Sets a min-width"
         ],
         correctIndex: 1,
-        explanation: "border-box makes width/height include padding + border — the modern default for layouts."
+        explanation: "border-box makes width/height include padding + border."
       },
       {
         question: "Which rule always wins when two selectors target the same element?",

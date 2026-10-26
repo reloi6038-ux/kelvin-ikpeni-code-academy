@@ -1,6 +1,7 @@
 /**
  * Kelvin Ikpeni Code Academy — Exercise seed
- * 60 exercises across HTML, CSS, JavaScript, Node, Express, debugging, and algorithms.
+ * 70 exercises across HTML, CSS, JavaScript, Node, Express, debugging, and algorithms.
+ * Part 2: HTML Fundamentals expanded to 20 exercises.
  */
 "use strict";
 
@@ -8,7 +9,7 @@ const Exercise = require("../models/Exercise");
 const Course = require("../models/Course");
 
 const exercises = [
-  // ============ HTML (1-10) ============
+  // ============ HTML (1-20) ============
   {
     title: "Add a Heading",
     slug: "add-a-heading",
@@ -177,8 +178,194 @@ const exercises = [
     ],
     points: 15, order: 10
   },
+  {
+    title: "Build a Full Page Structure",
+    slug: "full-page-structure",
+    description: "<p>Create a complete HTML5 document with <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html lang='en'&gt;</code>, a <code>&lt;head&gt;</code> with charset + viewport + title, and a <code>&lt;body&gt;</code> with an <code>&lt;h1&gt;</code> saying 'My Page'.</p>",
+    difficulty: "beginner",
+    language: "html",
+    topic: "structure",
+    starterHtml: "<!-- Start your document below -->\n",
+    solutionHtml: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My Page</title>\n</head>\n<body>\n  <h1>My Page</h1>\n</body>\n</html>",
+    hints: ["The doctype must be the first line.", "Include both charset and viewport metas.", "The <h1> goes inside <body>."],
+    testCases: [
+      { description: "Contains <!DOCTYPE html>", pattern: "<!DOCTYPE html>" },
+      { description: "Contains <html lang='en'>", pattern: "<html[^>]*lang=[\"']en[\"']" },
+      { description: "Contains charset UTF-8", pattern: "charset=[\"']UTF-8[\"']" },
+      { description: "Contains viewport meta", pattern: "name=[\"']viewport[\"']" },
+      { description: "Contains <title>My Page</title>", pattern: "<title>\\s*My Page\\s*</title>" },
+      { description: "Contains <h1>My Page</h1>", expectText: "My Page" }
+    ],
+    points: 20, order: 11
+  },
+  {
+    title: "Build a Navigation Menu",
+    slug: "build-nav-menu",
+    description: "<p>Create a <code>&lt;nav&gt;</code> element with 3 links: Home (to <code>/</code>), About (to <code>/about</code>), Contact (to <code>/contact</code>).</p>",
+    difficulty: "beginner",
+    language: "html",
+    topic: "navigation",
+    starterHtml: "<body>\n  <!-- Add nav here -->\n</body>",
+    solutionHtml: '<body>\n  <nav>\n    <a href="/">Home</a>\n    <a href="/about">About</a>\n    <a href="/contact">Contact</a>\n  </nav>\n</body>',
+    hints: ["Use the &lt;nav&gt; tag.", "Each link is an &lt;a href='...'&gt;."],
+    testCases: [
+      { description: "Contains a <nav> element", pattern: "<nav" },
+      { description: "Links to /", pattern: "href=[\"']/[\"']" },
+      { description: "Links to /about", pattern: "href=[\"']/about[\"']" },
+      { description: "Links to /contact", pattern: "href=[\"']/contact[\"']" },
+      { description: "Shows 'Home'", expectText: "Home" },
+      { description: "Shows 'Contact'", expectText: "Contact" }
+    ],
+    points: 15, order: 12
+  },
+  {
+    title: "Create an Article with Header",
+    slug: "create-article-with-header",
+    description: "<p>Create an <code>&lt;article&gt;</code> containing a <code>&lt;header&gt;</code> with an <code>&lt;h2&gt;</code> 'Blog Post', and a paragraph with 'Content here.'</p>",
+    difficulty: "intermediate",
+    language: "html",
+    topic: "semantic",
+    starterHtml: "<body>\n  <!-- Add article here -->\n</body>",
+    solutionHtml: "<body>\n  <article>\n    <header>\n      <h2>Blog Post</h2>\n    </header>\n    <p>Content here.</p>\n  </article>\n</body>",
+    hints: ["Use &lt;article&gt; as the wrapper.", "Put &lt;header&gt; inside &lt;article&gt;."],
+    testCases: [
+      { description: "Contains an <article>", pattern: "<article" },
+      { description: "Article contains a <header>", pattern: "<article[\\s\\S]*<header" },
+      { description: "Header contains an <h2>", pattern: "<header[\\s\\S]*<h2" },
+      { description: "Shows 'Blog Post'", expectText: "Blog Post" },
+      { description: "Shows 'Content here.'", expectText: "Content here." }
+    ],
+    points: 20, order: 13
+  },
+  {
+    title: "Accessible Form",
+    slug: "accessible-form",
+    description: "<p>Create a form with a labeled email input and a submit button. Both the label's <code>for</code> and the input's <code>id</code> must be <code>email</code>.</p>",
+    difficulty: "beginner",
+    language: "html",
+    topic: "forms",
+    starterHtml: "<body>\n  <!-- Add form here -->\n</body>",
+    solutionHtml: '<body>\n  <form>\n    <label for="email">Email</label>\n    <input id="email" name="email" type="email" required>\n    <button type="submit">Submit</button>\n  </form>\n</body>',
+    hints: ["The label's 'for' must match the input's 'id'.", "Use type='email' for validation."],
+    testCases: [
+      { description: "Contains a <form>", pattern: "<form" },
+      { description: "Label with for='email'", pattern: "<label[^>]*for=[\"']email[\"']" },
+      { description: "Input with id='email'", pattern: "<input[^>]*id=[\"']email[\"']" },
+      { description: "Input type='email'", pattern: "<input[^>]*type=[\"']email[\"']" },
+      { description: "Contains submit button", pattern: "<button[^>]*type=[\"']submit[\"']" }
+    ],
+    points: 20, order: 14
+  },
+  {
+    title: "Create a Table with Headers",
+    slug: "table-with-headers",
+    description: "<p>Create a table with a <code>&lt;caption&gt;</code>, header row (<code>&lt;th&gt;</code>), and at least one data row with two <code>&lt;td&gt;</code> cells.</p>",
+    difficulty: "intermediate",
+    language: "html",
+    topic: "tables",
+    starterHtml: "<body>\n  <!-- Add table here -->\n</body>",
+    solutionHtml: "<body>\n  <table>\n    <caption>Product Prices</caption>\n    <thead>\n      <tr><th>Product</th><th>Price</th></tr>\n    </thead>\n    <tbody>\n      <tr><td>Apple</td><td>$1</td></tr>\n    </tbody>\n  </table>\n</body>",
+    hints: ["Use &lt;caption&gt; inside &lt;table&gt;.", "Use &lt;th&gt; for headers, &lt;td&gt; for data."],
+    testCases: [
+      { description: "Contains a <table>", pattern: "<table" },
+      { description: "Has a <caption>", pattern: "<caption" },
+      { description: "Has a <th>", pattern: "<th" },
+      { description: "Has a <td>", pattern: "<td" }
+    ],
+    points: 20, order: 15
+  },
+  {
+    title: "Use the <fieldset> Element",
+    slug: "use-fieldset",
+    description: "<p>Group two radio buttons inside a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> 'Choose One'.</p>",
+    difficulty: "intermediate",
+    language: "html",
+    topic: "forms",
+    starterHtml: "<body>\n  <!-- Add fieldset here -->\n</body>",
+    solutionHtml: '<body>\n  <fieldset>\n    <legend>Choose One</legend>\n    <label><input type="radio" name="choice" value="a"> A</label>\n    <label><input type="radio" name="choice" value="b"> B</label>\n  </fieldset>\n</body>',
+    hints: ["Wrap the radio buttons in &lt;fieldset&gt;.", "The &lt;legend&gt; is the group's label."],
+    testCases: [
+      { description: "Contains a <fieldset>", pattern: "<fieldset" },
+      { description: "Contains a <legend>Choose One</legend>", pattern: "<legend>\\s*Choose One\\s*</legend>" },
+      { description: "Contains a radio input", pattern: "type=[\"']radio[\"']" },
+      { description: "Two radio buttons share the same name", pattern: "name=[\"']choice[\"'][\\s\\S]*name=[\"']choice[\"']" }
+    ],
+    points: 20, order: 16
+  },
+  {
+    title: "Add Meta Description",
+    slug: "add-meta-description",
+    description: "<p>Add a <code>&lt;meta name='description'&gt;</code> tag with content 'Learn HTML from scratch.' inside the <code>&lt;head&gt;</code>.</p>",
+    difficulty: "beginner",
+    language: "html",
+    topic: "metadata",
+    starterHtml: "<html>\n  <head>\n    <!-- Add meta here -->\n  </head>\n  <body></body>\n</html>",
+    solutionHtml: "<html>\n  <head>\n    <meta name=\"description\" content=\"Learn HTML from scratch.\">\n  </head>\n  <body></body>\n</html>",
+    hints: ["Use name='description'.", "Put it inside &lt;head&gt;."],
+    testCases: [
+      { description: "Contains meta description", pattern: "<meta[^>]*name=[\"']description[\"']" },
+      { description: "Content is the right text", expectText: "Learn HTML from scratch." }
+    ],
+    points: 10, order: 17
+  },
+  {
+    title: "Create a Footer",
+    slug: "create-footer",
+    description: "<p>Create a <code>&lt;footer&gt;</code> element containing a paragraph with '© 2026 My Site'.</p>",
+    difficulty: "beginner",
+    language: "html",
+    topic: "semantic",
+    starterHtml: "<body>\n  <!-- Add footer here -->\n</body>",
+    solutionHtml: '<body>\n  <footer>\n    <p>© 2026 My Site</p>\n  </footer>\n</body>',
+    hints: ["Use the &lt;footer&gt; tag.", "Use &amp;copy; or the © symbol."],
+    testCases: [
+      { description: "Contains a <footer>", pattern: "<footer" },
+      { description: "Contains '© 2026 My Site'", expectText: "2026 My Site" },
+      { description: "Has a paragraph inside footer", pattern: "<footer[\\s\\S]*<p" }
+    ],
+    points: 10, order: 18
+  },
+  {
+    title: "Build a Definition List",
+    slug: "build-definition-list",
+    description: "<p>Create a <code>&lt;dl&gt;</code> with one term '<strong>HTML</strong>' and its description '<strong>Markup language</strong>'.</p>",
+    difficulty: "intermediate",
+    language: "html",
+    topic: "lists",
+    starterHtml: "<body>\n  <!-- Add dl here -->\n</body>",
+    solutionHtml: "<body>\n  <dl>\n    <dt>HTML</dt>\n    <dd>Markup language</dd>\n  </dl>\n</body>",
+    hints: ["Use &lt;dl&gt; for the list.", "Use &lt;dt&gt; for the term, &lt;dd&gt; for the description."],
+    testCases: [
+      { description: "Contains a <dl>", pattern: "<dl" },
+      { description: "Contains a <dt>", pattern: "<dt" },
+      { description: "Contains a <dd>", pattern: "<dd" },
+      { description: "Shows 'HTML'", expectText: "HTML" },
+      { description: "Shows 'Markup language'", expectText: "Markup language" }
+    ],
+    points: 15, order: 19
+  },
+  {
+    title: "Full Semantic Page",
+    slug: "full-semantic-page",
+    description: "<p>Build a full semantic page with <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code>. Put an <code>&lt;h1&gt;</code> inside the header and a paragraph inside the main.</p>",
+    difficulty: "advanced",
+    language: "html",
+    topic: "semantic",
+    starterHtml: "<body>\n  <!-- Build the full page here -->\n</body>",
+    solutionHtml: "<body>\n  <header>\n    <h1>My Site</h1>\n    <nav>\n      <a href=\"/\">Home</a>\n    </nav>\n  </header>\n  <main>\n    <p>Main content</p>\n  </main>\n  <footer>\n    <p>© 2026</p>\n  </footer>\n</body>",
+    hints: ["Use all four semantic elements.", "Header should contain the h1 and nav."],
+    testCases: [
+      { description: "Contains <header>", pattern: "<header" },
+      { description: "Contains <nav>", pattern: "<nav" },
+      { description: "Contains <main>", pattern: "<main" },
+      { description: "Contains <footer>", pattern: "<footer" },
+      { description: "Header contains an h1", pattern: "<header[\\s\\S]*<h1" },
+      { description: "Main contains a paragraph", pattern: "<main[\\s\\S]*<p" }
+    ],
+    points: 25, order: 20
+  },
 
-  // ============ CSS (11-20) ============
+  // ============ CSS (21-30) ============
   {
     title: "Color a Paragraph",
     slug: "color-a-paragraph",
@@ -194,7 +381,7 @@ const exercises = [
       { description: "Uses the p selector", pattern: "p\\s*\\{" },
       { description: "Sets color to blue", pattern: "color\\s*:\\s*blue" }
     ],
-    points: 10, order: 11
+    points: 10, order: 21
   },
   {
     title: "Center a Div",
@@ -212,7 +399,7 @@ const exercises = [
       { description: "Centers horizontally", pattern: "justify-content\\s*:\\s*center" },
       { description: "Centers vertically", pattern: "align-items\\s*:\\s*center" }
     ],
-    points: 15, order: 12
+    points: 15, order: 22
   },
   {
     title: "Bold Text",
@@ -229,7 +416,7 @@ const exercises = [
       { description: "Targets strong", pattern: "strong\\s*\\{" },
       { description: "Sets font-weight", pattern: "font-weight\\s*:\\s*700" }
     ],
-    points: 10, order: 13
+    points: 10, order: 23
   },
   {
     title: "Remove Bullets",
@@ -246,7 +433,7 @@ const exercises = [
       { description: "Targets ul", pattern: "ul\\s*\\{" },
       { description: "Removes list-style", pattern: "list-style(-type)?\\s*:\\s*none" }
     ],
-    points: 10, order: 14
+    points: 10, order: 24
   },
   {
     title: "Add Padding",
@@ -263,7 +450,7 @@ const exercises = [
       { description: "Targets body", pattern: "body\\s*\\{" },
       { description: "Sets padding to 20px", pattern: "padding\\s*:\\s*20px" }
     ],
-    points: 10, order: 15
+    points: 10, order: 25
   },
   {
     title: "Change Background",
@@ -279,7 +466,7 @@ const exercises = [
     testCases: [
       { description: "Sets background color", pattern: "background(-color)?\\s*:\\s*#f0f0f0" }
     ],
-    points: 10, order: 16
+    points: 10, order: 26
   },
   {
     title: "Rounded Corners",
@@ -296,7 +483,7 @@ const exercises = [
       { description: "Targets .card", pattern: "\\.card\\s*\\{" },
       { description: "Sets border-radius", pattern: "border-radius\\s*:\\s*8px" }
     ],
-    points: 10, order: 17
+    points: 10, order: 27
   },
   {
     title: "Hover Effect",
@@ -313,7 +500,7 @@ const exercises = [
       { description: "Uses :hover", pattern: ":hover" },
       { description: "Sets background to red", pattern: "background(-color)?\\s*:\\s*red" }
     ],
-    points: 15, order: 18
+    points: 15, order: 28
   },
   {
     title: "Text Alignment",
@@ -330,7 +517,7 @@ const exercises = [
       { description: "Targets .title", pattern: "\\.title\\s*\\{" },
       { description: "Sets text-align: center", pattern: "text-align\\s*:\\s*center" }
     ],
-    points: 10, order: 19
+    points: 10, order: 29
   },
   {
     title: "Grid Layout",
@@ -347,10 +534,10 @@ const exercises = [
       { description: "Uses display: grid", pattern: "display\\s*:\\s*grid" },
       { description: "Defines 2 columns", pattern: "grid-template-columns\\s*:\\s*1fr\\s+1fr" }
     ],
-    points: 20, order: 20
+    points: 20, order: 30
   },
 
-  // ============ JavaScript (21-40) ============
+  // ============ JavaScript (31-50) ============
   {
     title: "Say Hello",
     slug: "say-hello",
@@ -364,7 +551,7 @@ const exercises = [
     testCases: [
       { description: "hello() returns 'Hello, World!'", callFn: "hello", input: [], expected: "Hello, World!" }
     ],
-    points: 10, order: 21
+    points: 10, order: 31
   },
   {
     title: "Sum Two Numbers",
@@ -380,7 +567,7 @@ const exercises = [
       { description: "sum(1, 2) === 3", callFn: "sum", input: [1, 2], expected: 3 },
       { description: "sum(10, -5) === 5", callFn: "sum", input: [10, -5], expected: 5 }
     ],
-    points: 10, order: 22
+    points: 10, order: 32
   },
   {
     title: "Reverse a String",
@@ -396,7 +583,7 @@ const exercises = [
       { description: "reverseString('abc') === 'cba'", callFn: "reverseString", input: ["abc"], expected: "cba" },
       { description: "reverseString('') === ''", callFn: "reverseString", input: [""], expected: "" }
     ],
-    points: 15, order: 23
+    points: 15, order: 33
   },
   {
     title: "Even or Odd",
@@ -412,7 +599,7 @@ const exercises = [
       { description: "evenOrOdd(2) === 'even'", callFn: "evenOrOdd", input: [2], expected: "even" },
       { description: "evenOrOdd(3) === 'odd'", callFn: "evenOrOdd", input: [3], expected: "odd" }
     ],
-    points: 10, order: 24
+    points: 10, order: 34
   },
   {
     title: "FizzBuzz (Short)",
@@ -429,7 +616,7 @@ const exercises = [
       { description: "fizzBuzz(3)", callFn: "fizzBuzz", input: [3], expected: "Fizz" },
       { description: "fizzBuzz(7)", callFn: "fizzBuzz", input: [7], expected: "7" }
     ],
-    points: 20, order: 25
+    points: 20, order: 35
   },
   {
     title: "Sum an Array",
@@ -445,7 +632,7 @@ const exercises = [
       { description: "sumArray([1,2,3]) === 6", callFn: "sumArray", input: [[1, 2, 3]], expected: 6 },
       { description: "sumArray([]) === 0", callFn: "sumArray", input: [[]], expected: 0 }
     ],
-    points: 15, order: 26
+    points: 15, order: 36
   },
   {
     title: "Find the Maximum",
@@ -460,7 +647,7 @@ const exercises = [
     testCases: [
       { description: "max([1,5,3]) === 5", callFn: "max", input: [[1, 5, 3]], expected: 5 }
     ],
-    points: 15, order: 27
+    points: 15, order: 37
   },
   {
     title: "Count Vowels",
@@ -476,7 +663,7 @@ const exercises = [
       { description: "countVowels('hello') === 2", callFn: "countVowels", input: ["hello"], expected: 2 },
       { description: "countVowels('xyz') === 0", callFn: "countVowels", input: ["xyz"], expected: 0 }
     ],
-    points: 20, order: 28
+    points: 20, order: 38
   },
   {
     title: "Palindrome Check",
@@ -492,7 +679,7 @@ const exercises = [
       { description: "isPalindrome('racecar')", callFn: "isPalindrome", input: ["racecar"], expected: true },
       { description: "isPalindrome('hello')", callFn: "isPalindrome", input: ["hello"], expected: false }
     ],
-    points: 20, order: 29
+    points: 20, order: 39
   },
   {
     title: "Flatten an Array",
@@ -507,7 +694,7 @@ const exercises = [
     testCases: [
       { description: "flatten([1,[2,3]]) === [1,2,3]", callFn: "flatten", input: [[1, [2, 3]]], expected: [1, 2, 3], compare: "deepEqual" }
     ],
-    points: 20, order: 30
+    points: 20, order: 40
   },
   {
     title: "Debounce Function",
@@ -522,7 +709,7 @@ const exercises = [
     testCases: [
       { description: "Returns a function", callFn: "debounce", input: [function () {}, 100], expected: "function" }
     ],
-    points: 30, order: 31
+    points: 30, order: 41
   },
   {
     title: "Multiply",
@@ -537,7 +724,7 @@ const exercises = [
     testCases: [
       { description: "multiply(2, 3) === 6", callFn: "multiply", input: [2, 3], expected: 6 }
     ],
-    points: 10, order: 32
+    points: 10, order: 42
   },
   {
     title: "Convert to Uppercase",
@@ -552,7 +739,7 @@ const exercises = [
     testCases: [
       { description: "toUpperCase('hello') === 'HELLO'", callFn: "toUpperCase", input: ["hello"], expected: "HELLO" }
     ],
-    points: 10, order: 33
+    points: 10, order: 43
   },
   {
     title: "Get First Element",
@@ -567,7 +754,7 @@ const exercises = [
     testCases: [
       { description: "first([10, 20]) === 10", callFn: "first", input: [[10, 20]], expected: 10 }
     ],
-    points: 10, order: 34
+    points: 10, order: 44
   },
   {
     title: "Get Last Element",
@@ -582,7 +769,7 @@ const exercises = [
     testCases: [
       { description: "last([10, 20]) === 20", callFn: "last", input: [[10, 20]], expected: 20 }
     ],
-    points: 10, order: 35
+    points: 10, order: 45
   },
   {
     title: "Check if Array Contains",
@@ -597,7 +784,7 @@ const exercises = [
     testCases: [
       { description: "contains([1,2,3], 2) === true", callFn: "contains", input: [[1, 2, 3], 2], expected: true }
     ],
-    points: 10, order: 36
+    points: 10, order: 46
   },
   {
     title: "Remove Duplicates",
@@ -612,7 +799,7 @@ const exercises = [
     testCases: [
       { description: "unique([1,1,2]) === [1,2]", callFn: "unique", input: [[1, 1, 2]], expected: [1, 2], compare: "deepEqual" }
     ],
-    points: 20, order: 37
+    points: 20, order: 47
   },
   {
     title: "Sort Numbers",
@@ -627,7 +814,7 @@ const exercises = [
     testCases: [
       { description: "sortAsc([3,1,2]) === [1,2,3]", callFn: "sortAsc", input: [[3, 1, 2]], expected: [1, 2, 3], compare: "deepEqual" }
     ],
-    points: 15, order: 38
+    points: 15, order: 48
   },
   {
     title: "Capitalize First Letter",
@@ -642,7 +829,7 @@ const exercises = [
     testCases: [
       { description: "capitalize('hello') === 'Hello'", callFn: "capitalize", input: ["hello"], expected: "Hello" }
     ],
-    points: 10, order: 39
+    points: 10, order: 49
   },
   {
     title: "Square a Number",
@@ -657,10 +844,10 @@ const exercises = [
     testCases: [
       { description: "square(5) === 25", callFn: "square", input: [5], expected: 25 }
     ],
-    points: 10, order: 40
+    points: 10, order: 50
   },
 
-  // ============ Node.js (41-45) ============
+  // ============ Node.js (51-55) ============
   {
     title: "Node: Read a File",
     slug: "node-read-a-file",
@@ -675,7 +862,7 @@ const exercises = [
       { description: "Uses fs.readFile", pattern: "fs\\.readFile" },
       { description: "Reads data.txt", expectText: "data.txt" }
     ],
-    points: 15, order: 41
+    points: 15, order: 51
   },
   {
     title: "Node: Write to a File",
@@ -691,7 +878,7 @@ const exercises = [
       { description: "Uses fs.writeFile", pattern: "fs\\.writeFile" },
       { description: "Writes to output.txt", expectText: "output.txt" }
     ],
-    points: 15, order: 42
+    points: 15, order: 52
   },
   {
     title: "Node: HTTP Server",
@@ -707,7 +894,7 @@ const exercises = [
       { description: "Uses http.createServer", pattern: "http\\.createServer" },
       { description: "Responds with 'Hello'", expectText: "Hello" }
     ],
-    points: 20, order: 43
+    points: 20, order: 53
   },
   {
     title: "Node: Read JSON",
@@ -723,7 +910,7 @@ const exercises = [
       { description: "Reads config.json", expectText: "config.json" },
       { description: "Parses JSON", pattern: "JSON\\.parse" }
     ],
-    points: 20, order: 44
+    points: 20, order: 54
   },
   {
     title: "Node: Environment Variables",
@@ -738,10 +925,10 @@ const exercises = [
     testCases: [
       { description: "Uses process.env.PORT", expectText: "process.env.PORT" }
     ],
-    points: 10, order: 45
+    points: 10, order: 55
   },
 
-  // ============ Express (46-50) ============
+  // ============ Express (56-60) ============
   {
     title: "Express: GET Route",
     slug: "express-get-route",
@@ -757,7 +944,7 @@ const exercises = [
       { description: "Route is /hello", expectText: "/hello" },
       { description: "Sends 'Hello'", expectText: "Hello" }
     ],
-    points: 15, order: 46
+    points: 15, order: 56
   },
   {
     title: "Express: POST Route",
@@ -773,7 +960,7 @@ const exercises = [
       { description: "Uses app.post", pattern: "app\\.post" },
       { description: "Route is /submit", expectText: "/submit" }
     ],
-    points: 15, order: 47
+    points: 15, order: 57
   },
   {
     title: "Express: JSON Response",
@@ -789,7 +976,7 @@ const exercises = [
       { description: "Uses res.json", pattern: "res\\.json" },
       { description: "Returns ok: true", expectText: "ok" }
     ],
-    points: 15, order: 48
+    points: 15, order: 58
   },
   {
     title: "Express: Route Parameter",
@@ -805,7 +992,7 @@ const exercises = [
       { description: "Uses :id param", expectText: ":id" },
       { description: "Accesses req.params", pattern: "req\\.params" }
     ],
-    points: 20, order: 49
+    points: 20, order: 59
   },
   {
     title: "Express: Middleware",
@@ -822,10 +1009,10 @@ const exercises = [
       { description: "Logs the message", expectText: "Request received" },
       { description: "Calls next()", pattern: "next\\(\\)" }
     ],
-    points: 25, order: 50
+    points: 25, order: 60
   },
 
-  // ============ Debugging (51-55) ============
+  // ============ Debugging (61-65) ============
   {
     title: "Fix: Off-by-One",
     slug: "fix-off-by-one",
@@ -839,7 +1026,7 @@ const exercises = [
     testCases: [
       { description: "firstN([1,2,3,4], 2) === [1,2]", callFn: "firstN", input: [[1, 2, 3, 4], 2], expected: [1, 2], compare: "deepEqual" }
     ],
-    points: 15, order: 51
+    points: 15, order: 61
   },
   {
     title: "Fix: Missing Return",
@@ -854,7 +1041,7 @@ const exercises = [
     testCases: [
       { description: "double(5) === 10", callFn: "double", input: [5], expected: 10 }
     ],
-    points: 10, order: 52
+    points: 10, order: 62
   },
   {
     title: "Fix: Missing Parentheses",
@@ -870,7 +1057,7 @@ const exercises = [
       { description: "check(5) === 'yes'", callFn: "check", input: [5], expected: "yes" },
       { description: "check(3) === 'no'", callFn: "check", input: [3], expected: "no" }
     ],
-    points: 15, order: 53
+    points: 15, order: 63
   },
   {
     title: "Fix: Wrong Loop",
@@ -885,7 +1072,7 @@ const exercises = [
     testCases: [
       { description: "sumTo(5) === 15", callFn: "sumTo", input: [5], expected: 15 }
     ],
-    points: 15, order: 54
+    points: 15, order: 64
   },
   {
     title: "Fix: Reversed Arguments",
@@ -900,14 +1087,14 @@ const exercises = [
     testCases: [
       { description: "subtract(10, 5) === 5", callFn: "subtract", input: [10, 5], expected: 5 }
     ],
-    points: 10, order: 55
+    points: 10, order: 65
   },
 
-  // ============ Algorithms & Challenges (56-60) ============
+  // ============ Algorithms (66-70) ============
   {
     title: "Factorial",
     slug: "factorial",
-    description: "<p>Write <code>factorial(n)</code> that returns n! (the product of all positive integers up to n).</p>",
+    description: "<p>Write <code>factorial(n)</code> that returns n!.</p>",
     difficulty: "intermediate",
     language: "javascript",
     topic: "math",
@@ -918,12 +1105,12 @@ const exercises = [
       { description: "factorial(5) === 120", callFn: "factorial", input: [5], expected: 120 },
       { description: "factorial(0) === 1", callFn: "factorial", input: [0], expected: 1 }
     ],
-    points: 20, order: 56
+    points: 20, order: 66
   },
   {
     title: "Fibonacci",
     slug: "fibonacci",
-    description: "<p>Write <code>fib(n)</code> that returns the nth Fibonacci number (F(0)=0, F(1)=1).</p>",
+    description: "<p>Write <code>fib(n)</code> that returns the nth Fibonacci number.</p>",
     difficulty: "intermediate",
     language: "javascript",
     topic: "math",
@@ -934,7 +1121,7 @@ const exercises = [
       { description: "fib(0) === 0", callFn: "fib", input: [0], expected: 0 },
       { description: "fib(10) === 55", callFn: "fib", input: [10], expected: 55 }
     ],
-    points: 25, order: 57
+    points: 25, order: 67
   },
   {
     title: "Two Sum",
@@ -949,7 +1136,7 @@ const exercises = [
     testCases: [
       { description: "twoSum([2,7,11,15], 9) === [0,1]", callFn: "twoSum", input: [[2, 7, 11, 15], 9], expected: [0, 1], compare: "deepEqual" }
     ],
-    points: 30, order: 58
+    points: 30, order: 68
   },
   {
     title: "Count Occurrences",
@@ -964,7 +1151,7 @@ const exercises = [
     testCases: [
       { description: "count([1,2,2,3], 2) === 2", callFn: "count", input: [[1, 2, 2, 3], 2], expected: 2 }
     ],
-    points: 15, order: 59
+    points: 15, order: 69
   },
   {
     title: "Anagram Check",
@@ -980,7 +1167,7 @@ const exercises = [
       { description: "isAnagram('listen', 'silent') === true", callFn: "isAnagram", input: ["listen", "silent"], expected: true },
       { description: "isAnagram('hello', 'world') === false", callFn: "isAnagram", input: ["hello", "world"], expected: false }
     ],
-    points: 25, order: 60
+    points: 25, order: 70
   }
 ];
 
@@ -993,11 +1180,35 @@ async function seedExercises() {
   allCourses.forEach((c) => { courseBySlug[c.slug] = c; });
 
   const linkMap = {
-    "html-fundamentals": ["add-a-heading", "create-a-link", "build-unordered-list", "add-an-image", "create-a-button", "add-a-paragraph", "create-a-form-with-input", "create-an-ordered-list", "semantic-header", "add-a-table"],
-    "css-fundamentals": ["color-a-paragraph", "center-a-div", "bold-text", "remove-bullets", "add-padding", "change-background", "rounded-corners", "hover-effect", "text-alignment", "grid-layout"],
-    "javascript-essentials": ["say-hello", "sum-two-numbers", "reverse-a-string", "even-or-odd", "fizzbuzz-short", "sum-an-array", "find-the-maximum", "count-vowels", "palindrome-check", "flatten-an-array", "multiply", "convert-to-uppercase", "get-first-element", "get-last-element", "array-contains", "remove-duplicates", "sort-numbers", "capitalize-first", "square-a-number"],
-    "express-js-fundamentals": ["express-get-route", "express-post-route", "express-json-response", "express-route-param", "express-middleware"],
-    "node-js-runtime": ["node-read-a-file", "node-write-a-file", "node-http-server", "node-read-json", "node-env-vars"]
+    "html-fundamentals": [
+      "add-a-heading", "create-a-link", "build-unordered-list", "add-an-image",
+      "create-a-button", "add-a-paragraph", "create-a-form-with-input",
+      "create-an-ordered-list", "semantic-header", "add-a-table",
+      "full-page-structure", "build-nav-menu", "create-article-with-header",
+      "accessible-form", "table-with-headers", "use-fieldset",
+      "add-meta-description", "create-footer", "build-definition-list",
+      "full-semantic-page"
+    ],
+    "css-fundamentals": [
+      "color-a-paragraph", "center-a-div", "bold-text", "remove-bullets",
+      "add-padding", "change-background", "rounded-corners", "hover-effect",
+      "text-alignment", "grid-layout"
+    ],
+    "javascript-essentials": [
+      "say-hello", "sum-two-numbers", "reverse-a-string", "even-or-odd",
+      "fizzbuzz-short", "sum-an-array", "find-the-maximum", "count-vowels",
+      "palindrome-check", "flatten-an-array", "multiply", "convert-to-uppercase",
+      "get-first-element", "get-last-element", "array-contains",
+      "remove-duplicates", "sort-numbers", "capitalize-first", "square-a-number"
+    ],
+    "express-js-fundamentals": [
+      "express-get-route", "express-post-route", "express-json-response",
+      "express-route-param", "express-middleware"
+    ],
+    "node-js-runtime": [
+      "node-read-a-file", "node-write-a-file", "node-http-server",
+      "node-read-json", "node-env-vars"
+    ]
   };
 
   const exerciseToCourse = {};
