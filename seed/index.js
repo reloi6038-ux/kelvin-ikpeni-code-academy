@@ -40,6 +40,9 @@ const { seedEs6Quiz } = require("./es6-quiz.seed");
 const { seedMongoLessons } = require("./mongodb-lessons.seed");
 const { seedMongoExercises } = require("./mongodb-exercises.seed");
 const { seedMongoQuiz } = require("./mongodb-quiz.seed");
+const { seedAuthLessons } = require("./auth-lessons.seed");
+const { seedAuthExercises } = require("./auth-exercises.seed");
+const { seedAuthQuiz } = require("./auth-quiz.seed");
 
 async function upsertUser({ name, email, password, role }) {
   if (!email || !password || !name) throw new Error(`Missing seed values for role=${role}`);
@@ -105,6 +108,9 @@ async function main() {
   console.log("\n📖 Seeding MongoDB & Mongoose lessons...\n");
   await seedMongoLessons();
 
+  console.log("\n📖 Seeding Authentication & Security lessons...\n");
+  await seedAuthLessons();
+
   console.log("\n🧪 Seeding exercises (base)...\n");
   await seedExercises();
 
@@ -129,6 +135,9 @@ async function main() {
   console.log("\n🧪 Seeding MongoDB & Mongoose exercises...\n");
   await seedMongoExercises();
 
+  console.log("\n🧪 Seeding Authentication & Security exercises...\n");
+  await seedAuthExercises();
+
   console.log("\n📝 Seeding quizzes (base)...\n");
   await seedQuizzes();
 
@@ -152,6 +161,9 @@ async function main() {
 
   console.log("\n📝 Seeding MongoDB & Mongoose quiz...\n");
   await seedMongoQuiz();
+
+  console.log("\n📝 Seeding Authentication & Security quiz...\n");
+  await seedAuthQuiz();
 
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();
