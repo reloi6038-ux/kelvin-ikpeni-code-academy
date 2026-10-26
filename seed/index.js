@@ -10,18 +10,30 @@ const Exercise = require("../models/Exercise");
 const Quiz = require("../models/Quiz");
 const Project = require("../models/Project");
 const ProjectTask = require("../models/ProjectTask");
+
+// Main seeders
 const { seedCourses } = require("./courses.seed");
 const { seedLessons } = require("./lessons.seed");
 const { seedExercises } = require("./exercises.seed");
 const { seedQuizzes } = require("./quizzes.seed");
 const { seedProjects } = require("./projects.seed");
 
+// Targeted seeders (Introduction to Web Development only)
+const { seedIntroLessons } = require("./intro-lessons.seed");
+const { seedIntroExercises } = require("./intro-exercises.seed");
+const { seedIntroQuiz } = require("./intro-quiz.seed");
+
 async function upsertUser({ name, email, password, role }) {
   if (!email || !password || !name) throw new Error(`Missing seed values for role=${role}`);
   const existing = await User.findOne({ email: email.toLowerCase() });
   if (existing) {
-    if (existing.role !== role) { existing.role = role; await existing.save(); console.log(`🔁 Updated role for ${email} → ${role}`); }
-    else { console.log(`✔  ${role} already exists: ${email}`); }
+    if (existing.role !== role) {
+      existing.role = role;
+      await existing.save();
+      console.log(`🔁 Updated role for ${email} → ${role}`);
+    } else {
+      console.log(`✔  ${role} already exists: ${email}`);
+    }
     return existing;
   }
   const user = new User({ name, email: email.toLowerCase(), passwordHash: password, role });
@@ -51,14 +63,26 @@ async function main() {
   console.log("\n📚 Seeding courses...\n");
   await seedCourses(admin._id);
 
-  console.log("\n📖 Seeding lessons...\n");
+  console.log("\n📖 Seeding lessons (base)...\n");
   await seedLessons();
 
-  console.log("\n🧪 Seeding exercises...\n");
+  // Targeted: replaces ONLY Introduction to Web Development lessons
+  console.log("\n📖 Seeding Introduction to Web Development lessons...\n");
+  await seedIntroLessons();
+
+  console.log("\n🧪 Seeding exercises (base)...\n");
   await seedExercises();
 
-  console.log("\n📝 Seeding quizzes...\n");
+  // Targeted: adds ONLY Introduction to Web Development exercises
+  console.log("\n🧪 Seeding Introduction to Web Development exercises...\n");
+  await seedIntroExercises();
+
+  console.log("\n📝 Seeding quizzes (base)...\n");
   await seedQuizzes();
+
+  // Targeted: replaces ONLY Introduction to Web Development quiz
+  console.log("\n📝 Seeding Introduction to Web Development quiz...\n");
+  await seedIntroQuiz();
 
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();

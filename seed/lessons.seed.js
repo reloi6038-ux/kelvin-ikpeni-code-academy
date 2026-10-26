@@ -1,7 +1,8 @@
 /**
  * Kelvin Ikpeni Code Academy — Lesson seed
- * Part 1: HTML Fundamentals (7 lessons)
- * Other courses keep their existing lessons from earlier phases.
+ * Part 1: Introduction to Web Development (9 lessons)
+ * HTML Fundamentals: 7 lessons (from previous expansion)
+ * Other courses: keep their existing lessons.
  */
 "use strict";
 
@@ -9,809 +10,581 @@ const Lesson = require("../models/Lesson");
 const Course = require("../models/Course");
 
 // =========================================================
-// HTML FUNDAMENTALS — 7 LESSONS
+// INTRODUCTION TO WEB DEVELOPMENT — 9 LESSONS
 // =========================================================
-const htmlLessons = [
+const introLessons = [
   {
-    title: "Introduction to HTML",
+    title: "What Is Web Development?",
     contentHtml: `
-      <h2>What is HTML?</h2>
-      <p><strong>HTML</strong> (HyperText Markup Language) is the standard language for creating web pages. It is <em>not</em> a programming language — it has no logic, loops, or variables. Instead, HTML is a <strong>markup language</strong>: it uses <strong>tags</strong> to describe the structure and meaning of content.</p>
-      <p>When you visit a website, your browser downloads an HTML document and reads it top-to-bottom, rendering each element visually. HTML tells the browser "this is a heading," "this is a paragraph," "this is an image," and so on.</p>
+      <h2>Websites vs web applications</h2>
+      <p>A <strong>website</strong> is a collection of static pages that present information. A <strong>web application</strong> is a website that lets users <em>do things</em>: create accounts, post content, buy products, track progress. The line is blurry — most modern "websites" are actually applications.</p>
+      <p>Examples:</p>
+      <ul>
+        <li><strong>Website</strong>: a restaurant's menu page</li>
+        <li><strong>Web app</strong>: a restaurant's online ordering system with accounts, cart, and payment</li>
+      </ul>
 
-      <h2>How browsers render HTML</h2>
-      <p>The browser follows a three-step process:</p>
+      <h2>The three layers of the web</h2>
+      <p>Every web app you've ever used is built from three layers:</p>
       <ol>
-        <li><strong>Parsing</strong> — it reads the HTML text and builds a tree of nodes called the <em>DOM</em> (Document Object Model).</li>
-        <li><strong>Layout</strong> — it calculates where each element goes on the page.</li>
-        <li><strong>Painting</strong> — it draws pixels to the screen.</li>
+        <li><strong>Frontend</strong> — what the user sees and interacts with. Runs in the browser.</li>
+        <li><strong>Backend</strong> — the server that processes requests, applies business logic, and returns data. Runs on a server.</li>
+        <li><strong>Database</strong> — persistent storage for users, content, and state. Runs on a database server.</li>
       </ol>
-      <p>If HTML has an error (a missing close tag, for example), the browser tries to "guess" what you meant and continue. This is called <em>error recovery</em> and is why HTML is forgiving.</p>
+      <p>These communicate through <strong>HTTP</strong>. The frontend sends requests; the backend handles them, talks to the database, and returns responses.</p>
 
-      <h2>HTML elements, tags, and attributes</h2>
-      <p>Everything in HTML is built from <strong>elements</strong>. An element is made of:</p>
+      <h2>What each technology does</h2>
       <ul>
-        <li>An <strong>opening tag</strong>: <code>&lt;p&gt;</code></li>
-        <li><strong>Content</strong>: <code>Hello, World!</code></li>
-        <li>A <strong>closing tag</strong>: <code>&lt;/p&gt;</code></li>
-      </ul>
-      <p>Some elements are <em>empty</em> (self-closing) and have no content: <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;hr&gt;</code>.</p>
-
-      <h3>Attributes</h3>
-      <p>Attributes add extra information to an element. They always live in the opening tag:</p>
-      <pre><code class="language-html">&lt;a href="https://example.com" target="_blank"&gt;Visit&lt;/a&gt;</code></pre>
-      <p>Here, <code>href</code> and <code>target</code> are attributes. The <code>href</code> tells the browser where the link goes. The <code>target="_blank"</code> opens it in a new tab.</p>
-
-      <h2>Basic document structure</h2>
-      <p>Every HTML document follows this skeleton:</p>
-      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My First Page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Hello, World!&lt;/h1&gt;
-    &lt;p&gt;This is my first webpage.&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-      <p>Line by line:</p>
-      <ul>
-        <li><code>&lt;!DOCTYPE html&gt;</code> — tells the browser "this is HTML5."</li>
-        <li><code>&lt;html lang="en"&gt;</code> — the root element. <code>lang</code> helps screen readers pick the right voice.</li>
-        <li><code>&lt;head&gt;</code> — metadata: title, charset, styles, scripts. Invisible to users.</li>
-        <li><code>&lt;body&gt;</code> — everything visible on the page.</li>
+        <li><strong>HTML</strong> — the structure. Tags describe what content <em>is</em>.</li>
+        <li><strong>CSS</strong> — the styling. Rules describe how content <em>looks</em>.</li>
+        <li><strong>JavaScript</strong> — the behaviour. Code makes the page <em>interactive</em>.</li>
+        <li><strong>Node.js + Express</strong> — the backend. JavaScript that runs on a server and handles HTTP requests.</li>
+        <li><strong>MongoDB</strong> — the database. Stores data as flexible JSON-like documents.</li>
       </ul>
 
-      <h2>Your turn — build your first webpage</h2>
-      <p>In the editor on the right, write a complete HTML document with:</p>
+      <h2>A very small example</h2>
+      <p>Here's a complete (tiny) web app in three files:</p>
+      <p><strong>index.html</strong> (frontend structure):</p>
+      <pre><code class="language-html">&lt;button id="greet"&gt;Say Hi&lt;/button&gt;</code></pre>
+      <p><strong>app.js</strong> (frontend behaviour):</p>
+      <pre><code class="language-javascript">document.getElementById("greet").addEventListener("click", async () =&gt; {
+  const res = await fetch("/api/greeting");
+  const data = await res.json();
+  alert(data.message);
+});</code></pre>
+      <p><strong>server.js</strong> (backend):</p>
+      <pre><code class="language-javascript">const express = require("express");
+const app = express();
+
+app.get("/api/greeting", (req, res) =&gt; {
+  res.json({ message: "Hello from the backend!" });
+});
+
+app.listen(3000);</code></pre>
+      <p>Click the button → the browser makes an HTTP request → the server responds with JSON → the browser shows an alert. <strong>That's web development.</strong></p>
+
+      <h2>Your turn</h2>
+      <p>Think about any website you use daily. Write down (in a note):</p>
       <ul>
-        <li>A <code>&lt;title&gt;</code> that says "My First Page"</li>
-        <li>An <code>&lt;h1&gt;</code> that says "Welcome to HTML"</li>
-        <li>A <code>&lt;p&gt;</code> describing what you're learning</li>
+        <li>Which parts are <em>frontend</em> (visible, interactive)?</li>
+        <li>Which parts must be <em>backend</em> (login, data, business logic)?</li>
+        <li>What data does it likely store in a <em>database</em>?</li>
       </ul>
-      <p>Click <strong>Run</strong> to preview. Click <strong>Submit</strong> to check your work.</p>
     `,
-    estimatedMinutes: 30,
+    estimatedMinutes: 25,
     learningObjectives: [
-      "Explain what HTML is and what it's not",
-      "Identify tags, elements, and attributes",
-      "Write a valid HTML5 document from memory"
+      "Differentiate websites from web applications",
+      "Name the three layers: frontend, backend, database",
+      "Explain how HTML, CSS, JS, Node, and MongoDB work together"
     ]
   },
   {
-    title: "HTML Document Structure and Metadata",
+    title: "Understanding Clients and Servers",
     contentHtml: `
-      <h2>The doctype declaration</h2>
-      <p>The very first line of any HTML document should be:</p>
-      <pre><code class="language-html">&lt;!DOCTYPE html&gt;</code></pre>
-      <p>This is not a tag — it's a special instruction that tells the browser "use modern standards mode, not the old quirks mode." Without it, old browsers may render your page in unexpected ways.</p>
-
-      <h2>The &lt;head&gt; element</h2>
-      <p>Everything in <code>&lt;head&gt;</code> is metadata: information <em>about</em> the page, not visible content. The most important children are:</p>
+      <h2>What is a client?</h2>
+      <p>A <strong>client</strong> is any program that makes requests to a server. The most common client is your <strong>browser</strong>, but clients also include:</p>
       <ul>
-        <li><strong><code>&lt;title&gt;</code></strong> — the text in the browser tab. Critical for SEO and bookmarks.</li>
-        <li><strong><code>&lt;meta charset&gt;</code></strong> — declares text encoding. Always use UTF-8.</li>
-        <li><strong><code>&lt;meta name="viewport"&gt;</code></strong> — required for mobile responsiveness.</li>
-        <li><strong><code>&lt;meta name="description"&gt;</code></strong> — the summary shown in Google search results.</li>
-        <li><strong><code>&lt;link rel="stylesheet"&gt;</code></strong> — loads external CSS.</li>
-        <li><strong><code>&lt;script&gt;</code></strong> — loads or embeds JavaScript.</li>
-        <li><strong><code>&lt;link rel="icon"&gt;</code></strong> — the favicon.</li>
+        <li>Mobile apps (iOS, Android)</li>
+        <li>Command-line tools like <code>curl</code></li>
+        <li>Another server (server-to-server communication)</li>
+        <li>Desktop apps that call APIs</li>
       </ul>
+      <p>What they all have in common: they speak HTTP and expect HTTP responses.</p>
 
-      <h2>Complete standard head example</h2>
-      <pre><code class="language-html">&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  &lt;meta name="description" content="A modern portfolio site."&gt;
-  &lt;title&gt;Jane Doe — Frontend Developer&lt;/title&gt;
-  &lt;link rel="stylesheet" href="/css/styles.css"&gt;
-  &lt;link rel="icon" href="/favicon.ico"&gt;
-  &lt;script src="/js/main.js" defer&gt;&lt;/script&gt;
-&lt;/head&gt;</code></pre>
+      <h2>What is a server?</h2>
+      <p>A <strong>server</strong> is a program that listens for incoming requests on a specific port, decides what to do, and returns a response.</p>
+      <p>Servers are usually long-running processes. They start, wait, and handle many requests without restarting.</p>
 
-      <h3>Why viewport matters</h3>
-      <p>Without <code>&lt;meta name="viewport"&gt;</code>, mobile browsers pretend to be a 980px-wide desktop. Your site will look tiny and users will have to zoom. The <code>width=device-width</code> value tells the browser "use the actual device width."</p>
+      <h2>The request/response cycle</h2>
+      <p>Every interaction is a cycle:</p>
+      <ol>
+        <li>The client builds an HTTP request: a method, a URL, headers, and optionally a body.</li>
+        <li>The request travels over the network to the server.</li>
+        <li>The server parses the request, runs its logic, and builds a response.</li>
+        <li>The response travels back to the client.</li>
+        <li>The client displays or processes the response.</li>
+      </ol>
 
-      <h3>The defer attribute</h3>
-      <p><code>&lt;script defer&gt;</code> tells the browser: download the script in parallel, but don't execute it until the HTML is fully parsed. This prevents scripts from blocking the page from rendering. Always use <code>defer</code> for scripts unless you have a reason not to.</p>
+      <h2>A minimal server</h2>
+      <pre><code class="language-javascript">// server.js
+const http = require("http");
+
+const server = http.createServer((req, res) =&gt; {
+  console.log("Request:", req.method, req.url);
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Hello, client!");
+});
+
+server.listen(3000, () =&gt; {
+  console.log("Server listening on http://localhost:3000");
+});</code></pre>
+      <p>This is a raw Node.js server — no Express, just the built-in HTTP module. It listens on port 3000 and responds to every request with "Hello, client!".</p>
+
+      <h2>What happens when you open a website</h2>
+      <p>When you type <code>https://example.com</code> and press Enter:</p>
+      <ol>
+        <li>The browser resolves the domain to an IP address (<strong>DNS</strong>).</li>
+        <li>The browser opens a <strong>TCP</strong> connection (and <strong>TLS</strong> for HTTPS) to that IP on port 443.</li>
+        <li>The browser sends an HTTP GET request.</li>
+        <li>The server responds with HTML.</li>
+        <li>The browser parses the HTML and discovers linked CSS, JS, images.</li>
+        <li>The browser requests each of those in parallel.</li>
+        <li>The page renders once all critical assets arrive.</li>
+      </ol>
 
       <h2>Your turn</h2>
-      <p>Create a standards-compliant HTML document with a proper <code>&lt;head&gt;</code> including:</p>
+      <p>Write down (in a note) what happens when you visit a website you use daily. Break it into the 7 steps above. Name each server involved.</p>
+    `,
+    estimatedMinutes: 30,
+    learningObjectives: [
+      "Define client and server",
+      "Trace the request/response cycle",
+      "Write a minimal raw Node.js server"
+    ]
+  },
+  {
+    title: "HTTP and HTTPS Fundamentals",
+    contentHtml: `
+      <h2>What HTTP is</h2>
+      <p><strong>HTTP</strong> (HyperText Transfer Protocol) is the language clients and servers use to talk. It defines what a request looks like and what a response looks like.</p>
+
+      <h2>HTTP methods</h2>
+      <p>Every request has a <strong>method</strong> that declares its intent:</p>
       <ul>
-        <li>UTF-8 charset</li>
-        <li>Responsive viewport</li>
-        <li>A title</li>
-        <li>A description</li>
-        <li>An external CSS link</li>
+        <li><strong>GET</strong> — retrieve data. No body. Idempotent.</li>
+        <li><strong>POST</strong> — create data. Has a body. Not idempotent.</li>
+        <li><strong>PUT</strong> — replace an entire resource. Idempotent.</li>
+        <li><strong>PATCH</strong> — modify part of a resource.</li>
+        <li><strong>DELETE</strong> — remove a resource.</li>
+      </ul>
+      <p><em>Idempotent</em> means calling it twice has the same effect as calling it once. GET, PUT, DELETE are idempotent. POST is not — posting the same form twice creates two records.</p>
+
+      <h2>Anatomy of a request</h2>
+      <pre><code class="language-http">GET /api/courses HTTP/1.1
+Host: example.com
+Accept: application/json
+User-Agent: Mozilla/5.0
+
+</code></pre>
+      <ul>
+        <li><strong>Request line</strong>: method + path + HTTP version</li>
+        <li><strong>Headers</strong>: key-value metadata</li>
+        <li><strong>Body</strong> (optional): for POST/PUT/PATCH</li>
+      </ul>
+
+      <h2>Anatomy of a response</h2>
+      <pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 82
+
+{ "courses": [{ "title": "HTML Fundamentals", "lessons": 7 }] }
+</code></pre>
+
+      <h2>Status codes</h2>
+      <p>Status codes are grouped into categories:</p>
+      <ul>
+        <li><strong>2xx — success</strong>: 200 OK, 201 Created, 204 No Content</li>
+        <li><strong>3xx — redirect</strong>: 301 Moved Permanently, 302 Found</li>
+        <li><strong>4xx — client error</strong>: 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests</li>
+        <li><strong>5xx — server error</strong>: 500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable</li>
+      </ul>
+
+      <h2>HTTPS: HTTP with encryption</h2>
+      <p><strong>HTTPS</strong> is HTTP over TLS (Transport Layer Security). The data on the wire is encrypted so no one between you and the server (Wi-Fi router, ISP, attacker) can read or modify it.</p>
+      <p>You can see this in any browser: <strong>https://</strong> with a lock icon means the connection is encrypted and the server's identity is verified by a certificate authority.</p>
+
+      <h2>Your turn</h2>
+      <p>Open DevTools → Network. Visit any site. Look at each request's method and status. Identify one GET, one POST (if any), and one 200. Then find a 404 by visiting a nonexistent page.</p>
+    `,
+    estimatedMinutes: 40,
+    learningObjectives: [
+      "Name the five HTTP methods and their purposes",
+      "Read a raw HTTP request and response",
+      "Interpret status codes by category",
+      "Explain why HTTPS is essential"
+    ]
+  },
+  {
+    title: "DNS and Domain Names",
+    contentHtml: `
+      <h2>Why DNS exists</h2>
+      <p>Computers talk in IP addresses like <code>93.184.216.34</code>. Humans remember names like <code>example.com</code>. <strong>DNS</strong> (Domain Name System) is the phonebook: it translates names into IP addresses.</p>
+
+      <h2>How DNS resolution works</h2>
+      <p>When you type <code>example.com</code>, the resolver runs this sequence:</p>
+      <ol>
+        <li><strong>Browser cache</strong> — has it been resolved recently? Use it.</li>
+        <li><strong>OS cache</strong> — same check at the operating system level.</li>
+        <li><strong>Recursive resolver</strong> — usually your ISP's DNS server. If it doesn't know, it asks others.</li>
+        <li><strong>Root nameserver</strong> — knows where the <code>.com</code> TLD servers are.</li>
+        <li><strong>TLD nameserver</strong> — knows where <code>example.com</code>'s nameservers are.</li>
+        <li><strong>Authoritative nameserver</strong> — the actual answer: "example.com is at 93.184.216.34".</li>
+      </ol>
+      <p>Total: ~50–200ms on first lookup. Subsequent lookups hit caches and take <1ms.</p>
+
+      <h2>DNS record types</h2>
+      <ul>
+        <li><strong>A record</strong> — maps a name to an IPv4 address</li>
+        <li><strong>AAAA record</strong> — maps a name to an IPv6 address</li>
+        <li><strong>CNAME</strong> — an alias pointing to another domain</li>
+        <li><strong>MX</strong> — mail server for the domain</li>
+        <li><strong>TXT</strong> — arbitrary text, often used for verification</li>
+        <li><strong>NS</strong> — the nameservers for the domain</li>
+      </ul>
+
+      <h2>Example: A record</h2>
+      <pre><code>example.com    3600    IN    A    93.184.216.34</code></pre>
+      <p>This says: <em>for the next 3600 seconds, "example.com" resolves to 93.184.216.34</em>. The <code>3600</code> is the <strong>TTL</strong> (time to live) in seconds.</p>
+
+      <h2>Domain registration</h2>
+      <p>Registering a domain means:</p>
+      <ol>
+        <li>Buying the right to use a name from a registrar (Namecheap, GoDaddy, Cloudflare).</li>
+        <li>Configuring the domain's nameservers to point to your DNS host.</li>
+        <li>Adding records (A, AAAA, CNAME) at that DNS host.</li>
+      </ol>
+
+      <h2>Your turn</h2>
+      <p>Run this in your terminal to see DNS in action:</p>
+      <pre><code class="language-bash">nslookup example.com</code></pre>
+      <p>You'll see the IP address(es) behind the domain. Try a few more: <code>github.com</code>, <code>openai.com</code>.</p>
+    `,
+    estimatedMinutes: 30,
+    learningObjectives: [
+      "Explain the DNS resolution process",
+      "Identify A, AAAA, CNAME, MX, and TXT records",
+      "Describe domain registration steps"
+    ]
+  },
+  {
+    title: "How Web Browsers Work",
+    contentHtml: `
+      <h2>The browser as a runtime</h2>
+      <p>Modern browsers are almost operating systems. Chrome has a rendering engine (<strong>Blink</strong>), a JavaScript engine (<strong>V8</strong>), a networking stack, a media pipeline, and a security model. Each tab is a sandboxed process.</p>
+
+      <h2>The rendering pipeline</h2>
+      <ol>
+        <li><strong>Fetch</strong> — the browser downloads HTML</li>
+        <li><strong>Parse</strong> — it reads HTML and builds the <strong>DOM</strong> (Document Object Model): a tree of nodes</li>
+        <li><strong>Style</strong> — it fetches and parses CSS, building a <strong>CSSOM</strong> (CSS Object Model)</li>
+        <li><strong>Layout</strong> — it computes positions and sizes for every element</li>
+        <li><strong>Paint</strong> — it converts boxes into pixels</li>
+        <li><strong>Composite</strong> — it layers pixels and sends them to the GPU</li>
+      </ol>
+
+      <h2>The DOM</h2>
+      <p>If you write:</p>
+      <pre><code class="language-html">&lt;body&gt;
+  &lt;h1&gt;Hello&lt;/h1&gt;
+  &lt;p&gt;World&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+      <p>The DOM is a tree:</p>
+      <pre><code>body
+├── h1
+│   └── "Hello" (text node)
+└── p
+    └── "World" (text node)</code></pre>
+      <p>JavaScript can read and modify this tree. That's what makes pages interactive.</p>
+
+      <h2>JavaScript execution</h2>
+      <p>Scripts run in V8, isolated from other tabs and from the OS. They can:</p>
+      <ul>
+        <li>Read and modify the DOM</li>
+        <li>Make network requests with <code>fetch()</code></li>
+        <li>Store data in <code>localStorage</code></li>
+        <li>Handle events (clicks, keys, scrolling)</li>
+      </ul>
+
+      <h2>Developer Tools</h2>
+      <p>Open with <kbd>F12</kbd> or <kbd>Ctrl+Shift+I</kbd>. Key panels:</p>
+      <ul>
+        <li><strong>Elements</strong> — inspect and edit the DOM and CSS in real time</li>
+        <li><strong>Console</strong> — run JavaScript, see errors</li>
+        <li><strong>Network</strong> — see every request and response</li>
+        <li><strong>Application</strong> — cookies, localStorage, service workers</li>
+      </ul>
+
+      <h2>Your turn</h2>
+      <p>Open any website. In DevTools:</p>
+      <ul>
+        <li>Use Elements to change a heading's text</li>
+        <li>Use Console to run <code>document.title</code></li>
+        <li>Use Network to see how many requests load the page</li>
       </ul>
     `,
     estimatedMinutes: 35,
     learningObjectives: [
-      "Write a complete, standards-compliant <head>",
-      "Understand why the doctype exists",
-      "Use viewport meta for responsive design"
+      "Describe the rendering pipeline",
+      "Explain what the DOM is",
+      "Use the main DevTools panels"
     ]
   },
   {
-    title: "Semantic HTML",
+    title: "URLs, IP Addresses, Ports, and Networking",
     contentHtml: `
-      <h2>What are semantic elements?</h2>
-      <p>In the early days of HTML, developers used <code>&lt;div&gt;</code> for everything. A page header was <code>&lt;div class="header"&gt;</code>. The nav was <code>&lt;div class="nav"&gt;</code>. The machine couldn't tell them apart from body content.</p>
-      <p><strong>Semantic elements</strong> describe what their content <em>means</em>. A <code>&lt;nav&gt;</code> is navigation. An <code>&lt;article&gt;</code> is a self-contained piece of content. This helps:</p>
+      <h2>Anatomy of a URL</h2>
+      <pre><code>https://api.example.com:443/courses/123?sort=new#top</code></pre>
       <ul>
-        <li><strong>Screen readers</strong> — they let users jump between sections.</li>
-        <li><strong>Search engines</strong> — Google weights <code>&lt;main&gt;</code> content more than boilerplate.</li>
-        <li><strong>Other developers</strong> — your code becomes readable.</li>
+        <li><strong>Protocol</strong>: <code>https</code></li>
+        <li><strong>Host</strong>: <code>api.example.com</code></li>
+        <li><strong>Port</strong>: <code>443</code> (default for HTTPS)</li>
+        <li><strong>Path</strong>: <code>/courses/123</code></li>
+        <li><strong>Query</strong>: <code>?sort=new</code></li>
+        <li><strong>Fragment</strong>: <code>#top</code></li>
       </ul>
 
-      <h2>The main semantic elements</h2>
+      <h2>IP addresses</h2>
+      <p>An IP address identifies a machine on a network:</p>
       <ul>
-        <li><code>&lt;header&gt;</code> — introductory content: logo, nav, hero</li>
-        <li><code>&lt;nav&gt;</code> — navigation links</li>
-        <li><code>&lt;main&gt;</code> — the primary content (only one per page)</li>
-        <li><code>&lt;section&gt;</code> — a thematic grouping with a heading</li>
-        <li><code>&lt;article&gt;</code> — self-contained content (a blog post, a widget)</li>
-        <li><code>&lt;aside&gt;</code> — tangential content (sidebar, related links)</li>
-        <li><code>&lt;footer&gt;</code> — closing content: copyright, contact, sitemap</li>
+        <li><strong>IPv4</strong>: <code>192.168.1.10</code> (4 bytes)</li>
+        <li><strong>IPv6</strong>: <code>2001:db8::1</code> (16 bytes)</li>
+        <li><strong>localhost</strong>: <code>127.0.0.1</code> — the machine itself</li>
+        <li><strong>0.0.0.0</strong>: "listen on all interfaces"</li>
       </ul>
 
-      <h2>Example: a blog homepage</h2>
-      <pre><code class="language-html">&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;My Blog&lt;/h1&gt;
-    &lt;nav&gt;
-      &lt;a href="/"&gt;Home&lt;/a&gt;
-      &lt;a href="/about"&gt;About&lt;/a&gt;
-    &lt;/nav&gt;
-  &lt;/header&gt;
+      <h2>Ports</h2>
+      <p>One machine can host many servers, each on a different <strong>port</strong>. Default ports:</p>
+      <ul>
+        <li><strong>80</strong> — HTTP</li>
+        <li><strong>443</strong> — HTTPS</li>
+        <li><strong>3000</strong> — typical dev port for Node.js</li>
+        <li><strong>5000</strong> — alternate dev port</li>
+        <li><strong>27017</strong> — MongoDB</li>
+      </ul>
+      <p>When you run <code>npm run dev</code> and see "Server running at http://localhost:3000", it means: <em>"the server is listening on the loopback interface, port 3000, on your machine."</em></p>
 
-  &lt;main&gt;
-    &lt;article&gt;
-      &lt;h2&gt;Why Semantic HTML Matters&lt;/h2&gt;
-      &lt;p&gt;Published Nov 1, 2026&lt;/p&gt;
-      &lt;p&gt;Semantic HTML improves accessibility...&lt;/p&gt;
-    &lt;/article&gt;
-  &lt;/main&gt;
-
-  &lt;aside&gt;
-    &lt;h3&gt;About Me&lt;/h3&gt;
-    &lt;p&gt;I'm a developer learning HTML.&lt;/p&gt;
-  &lt;/aside&gt;
-
-  &lt;footer&gt;
-    &lt;p&gt;&amp;copy; 2026 Jane Doe&lt;/p&gt;
-  &lt;/footer&gt;
-&lt;/body&gt;</code></pre>
+      <h2>TCP and TLS</h2>
+      <p>HTTP is built on <strong>TCP</strong>, which guarantees ordered, reliable delivery. For HTTPS, <strong>TLS</strong> is layered on top of TCP to encrypt the data.</p>
+      <p>Every HTTPS connection involves a brief TLS handshake that:</p>
+      <ol>
+        <li>Verifies the server's certificate</li>
+        <li>Negotiates encryption algorithms</li>
+        <li>Exchanges session keys</li>
+      </ol>
 
       <h2>Your turn</h2>
-      <p>Structure a blog homepage using all 7 semantic elements. Include:</p>
+      <p>Answer these:</p>
       <ul>
-        <li>A header with your site name and 2 nav links</li>
-        <li>A main area with 2 articles</li>
-        <li>An aside with author info</li>
-        <li>A footer with copyright</li>
+        <li>What is the default port for HTTPS?</li>
+        <li>What does <code>localhost:3000</code> mean?</li>
+        <li>What's the difference between 127.0.0.1 and 0.0.0.0?</li>
       </ul>
     `,
-    estimatedMinutes: 45,
+    estimatedMinutes: 40,
     learningObjectives: [
-      "Use all 7 semantic elements correctly",
-      "Explain why semantics matter for accessibility and SEO",
-      "Replace div soup with meaningful structure"
+      "Break down a URL into its parts",
+      "Explain IP addresses and common ports",
+      "Describe localhost and 0.0.0.0"
     ]
   },
   {
-    title: "HTML Links, Images, Lists, and Tables",
+    title: "Frontend, Backend, and Databases",
     contentHtml: `
-      <h2>Hyperlinks</h2>
-      <p>The <code>&lt;a&gt;</code> element creates a link:</p>
-      <pre><code class="language-html">&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
-&lt;a href="/about"&gt;About Us&lt;/a&gt;
-&lt;a href="#section-2"&gt;Jump to Section 2&lt;/a&gt;
-&lt;a href="mailto:hi@example.com"&gt;Email Me&lt;/a&gt;
-&lt;a href="tel:+1234567890"&gt;Call Us&lt;/a&gt;</code></pre>
+      <h2>The full flow of a login request</h2>
+      <p>Here's what happens when a user logs in to a web app:</p>
+      <ol>
+        <li>The user types an email and password and clicks <strong>Submit</strong>.</li>
+        <li>The frontend validates the fields, then sends a <code>POST /api/auth/login</code> request with the credentials.</li>
+        <li>The backend (Node.js + Express) receives the request.</li>
+        <li>The backend queries the <strong>database</strong> (MongoDB): <em>"Find the user with this email."</em></li>
+        <li>The database returns the user record (with a hashed password).</li>
+        <li>The backend compares the hash with the submitted password.</li>
+        <li>If correct, the backend issues a session cookie.</li>
+        <li>The frontend stores the cookie and redirects to the dashboard.</li>
+      </ol>
+
+      <h2>The backend code</h2>
+      <pre><code class="language-javascript">app.post("/api/auth/login", async (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) return res.status(401).json({ error: "Invalid credentials" });
+
+  const ok = await bcrypt.compare(password, user.passwordHash);
+  if (!ok) return res.status(401).json({ error: "Invalid credentials" });
+
+  req.session.userId = user._id;
+  res.json({ ok: true, name: user.name });
+});</code></pre>
+
+      <h2>The frontend code</h2>
+      <pre><code class="language-javascript">document.querySelector("#loginForm").addEventListener("submit", async (e) =&gt; {
+  e.preventDefault();
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  if (!res.ok) {
+    alert("Invalid credentials");
+    return;
+  }
+  window.location.href = "/dashboard.html";
+});</code></pre>
+
+      <h2>The database model (Mongoose)</h2>
+      <pre><code class="language-javascript">const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  passwordHash: { type: String, required: true }
+});</code></pre>
+
+      <h2>Why each layer exists</h2>
       <ul>
-        <li>Absolute URLs start with <code>https://</code>.</li>
-        <li>Relative URLs start with <code>/</code> (from site root) or <code>./</code> (from current page).</li>
-        <li>Fragment links start with <code>#</code> and jump to an element with the matching id.</li>
-        <li><code>mailto:</code> and <code>tel:</code> open the user's email or phone app.</li>
+        <li><strong>Frontend</strong>: user experience, client-side validation, display</li>
+        <li><strong>Backend</strong>: security, business logic, orchestration</li>
+        <li><strong>Database</strong>: durable storage, queryable data</li>
       </ul>
-
-      <h2>Images</h2>
-      <pre><code class="language-html">&lt;img src="/images/hero.jpg" alt="A mountain at sunrise" width="800" height="600"&gt;</code></pre>
-      <p>Always include <code>alt</code> text describing the image. This is used by screen readers and appears if the image fails to load. Decorative images should have <code>alt=""</code> (empty) so screen readers skip them.</p>
-
-      <h2>Lists</h2>
-      <pre><code class="language-html">&lt;ul&gt;
-  &lt;li&gt;Item one&lt;/li&gt;
-  &lt;li&gt;Item two&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;First step&lt;/li&gt;
-  &lt;li&gt;Second step&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;dl&gt;
-  &lt;dt&gt;HTML&lt;/dt&gt;
-  &lt;dd&gt;The markup language of the web&lt;/dd&gt;
-&lt;/dl&gt;</code></pre>
-      <p>Use <code>&lt;ul&gt;</code> for unordered (bulleted) lists, <code>&lt;ol&gt;</code> for ordered (numbered) lists, and <code>&lt;dl&gt;</code> for description lists (term + definition pairs).</p>
-
-      <h2>Tables</h2>
-      <pre><code class="language-html">&lt;table&gt;
-  &lt;caption&gt;Course Timetable&lt;/caption&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Time&lt;/th&gt;
-      &lt;th&gt;Course&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;9:00 AM&lt;/td&gt;
-      &lt;td&gt;HTML Fundamentals&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-      <p>Tables are for <em>tabular data</em>, not for page layout. Use <code>&lt;caption&gt;</code> to describe the table, <code>&lt;thead&gt;</code> for header rows, <code>&lt;tbody&gt;</code> for data rows, and <code>&lt;th&gt;</code> (not <code>&lt;td&gt;</code>) for header cells. Screen readers use these to help users navigate complex tables.</p>
 
       <h2>Your turn</h2>
-      <p>Build a course catalogue page containing:</p>
-      <ul>
-        <li>A list of 3 courses (unordered list)</li>
-        <li>A link to "Enrol Now"</li>
-        <li>An image for each course</li>
-        <li>A timetable table showing when each course meets</li>
-      </ul>
+      <p>Draw the request flow for a <em>sign up</em> form. Name the endpoint, the fields sent, the database query, and the response.</p>
     `,
-    estimatedMinutes: 45,
+    estimatedMinutes: 40,
     learningObjectives: [
-      "Create internal, external, and fragment links",
-      "Write accessible images with descriptive alt text",
-      "Build semantic tables with captions and headers"
+      "Trace a login flow from frontend to database and back",
+      "Write a minimal Express login handler",
+      "Explain why each layer exists"
     ]
   },
   {
-    title: "Accessible HTML Markup",
+    title: "Hosting, Deployment, and the Web Lifecycle",
     contentHtml: `
-      <h2>Why accessibility matters</h2>
-      <p>Over 1 billion people worldwide have some form of disability. Accessible HTML ensures your site works for users who:</p>
+      <h2>Local development vs production</h2>
+      <p><strong>Local development</strong> means running the app on your machine, usually at <code>http://localhost:3000</code>, with a local or cloud database and dummy data.</p>
+      <p><strong>Production</strong> means running the app on a server that anyone in the world can reach, with a real domain, HTTPS, real users, and real data.</p>
+
+      <h2>What changes between the two</h2>
       <ul>
-        <li>Use screen readers (blind or low vision)</li>
-        <li>Navigate with keyboards only</li>
-        <li>Have motor impairments</li>
-        <li>Are deaf or hard of hearing (need captions)</li>
-        <li>Have cognitive disabilities (need clarity)</li>
-      </ul>
-      <p>Accessibility is not just ethically right — it's legally required in many countries (ADA in the US, WCAG in the EU, AODA in Canada).</p>
-
-      <h2>Accessible headings</h2>
-      <p>Use headings to outline your document. Never skip levels:</p>
-      <pre><code class="language-html">&lt;!-- GOOD --&gt;
-&lt;h1&gt;Main Title&lt;/h1&gt;
-&lt;h2&gt;Section&lt;/h2&gt;
-&lt;h3&gt;Subsection&lt;/h3&gt;
-
-&lt;!-- BAD: skipped h2 --&gt;
-&lt;h1&gt;Main Title&lt;/h1&gt;
-&lt;h3&gt;Section&lt;/h3&gt;</code></pre>
-      <p>Use one <code>&lt;h1&gt;</code> per page. Screen reader users navigate by jumping between headings — a proper hierarchy lets them skim your page.</p>
-
-      <h2>Descriptive links</h2>
-      <p>Screen reader users often list all links on a page. "Click here" tells them nothing.</p>
-      <pre><code class="language-html">&lt;!-- BAD --&gt;
-&lt;a href="/docs"&gt;Click here&lt;/a&gt;
-
-&lt;!-- GOOD --&gt;
-&lt;a href="/docs"&gt;Read the documentation&lt;/a&gt;</code></pre>
-
-      <h2>Image alt text</h2>
-      <p>Alt text describes images for users who can't see them. Be specific:</p>
-      <pre><code class="language-html">&lt;!-- BAD --&gt;
-&lt;img src="/chart.png" alt="chart"&gt;
-
-&lt;!-- GOOD --&gt;
-&lt;img src="/chart.png" alt="Bar chart showing 40% growth in Q3 2026"&gt;
-
-&lt;!-- DECORATIVE --&gt;
-&lt;img src="/decor.png" alt=""&gt;</code></pre>
-
-      <h2>Form labels</h2>
-      <p>Every input must have a label associated with it. Use <code>for</code> matching the input's <code>id</code>:</p>
-      <pre><code class="language-html">&lt;label for="email"&gt;Email address&lt;/label&gt;
-&lt;input id="email" name="email" type="email" required&gt;</code></pre>
-      <p>Clicking the label focuses the input. Screen readers announce "Email address, edit text" when the user tabs to the field.</p>
-
-      <h2>Keyboard navigation</h2>
-      <p>Users who can't use a mouse navigate with <kbd>Tab</kbd>, <kbd>Shift+Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd>. Ensure:</p>
-      <ul>
-        <li>All interactive elements (<code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>) are reachable by Tab.</li>
-        <li>Focus outlines are visible (don't remove them with <code>outline: none</code>).</li>
+        <li><strong>Environment variables</strong>: production secrets live in the platform's dashboard, never in Git.</li>
+        <li><strong>Database</strong>: production uses a managed MongoDB (e.g., Atlas), not a local one.</li>
+        <li><strong>HTTPS</strong>: production requires TLS. Locally you can use HTTP.</li>
+        <li><strong>Logs and monitoring</strong>: production has real logs and alerts.</li>
+        <li><strong>Restarts</strong>: production restarts automatically on crashes.</li>
       </ul>
 
-      <h2>When to use ARIA</h2>
-      <p><strong>ARIA</strong> (Accessible Rich Internet Applications) attributes add extra meaning for screen readers. But the first rule of ARIA is: <em>don't use ARIA when native HTML works</em>.</p>
-      <pre><code class="language-html">&lt;!-- BAD: redundant --&gt;
-&lt;button role="button" aria-label="Submit"&gt;Submit&lt;/button&gt;
+      <h2>Environment variables in Node.js</h2>
+      <pre><code class="language-javascript">// bad: hardcoded
+const uri = "mongodb+srv://user:pass@cluster.mongodb.net/kica";
 
-&lt;!-- GOOD: only when needed --&gt;
-&lt;div role="alert"&gt;Your changes were saved.&lt;/div&gt;</code></pre>
+// good: from environment
+const uri = process.env.MONGODB_URI;</code></pre>
+      <p>Locally, you set them in a <code>.env</code> file (never committed). In production, you set them in Render's dashboard.</p>
+
+      <h2>Health checks</h2>
+      <p>Production platforms use a <strong>health check</strong> endpoint to decide if your app is alive:</p>
+      <pre><code class="language-javascript">app.get("/api/health", (req, res) =&gt; {
+  res.json({ status: "ok", uptime: process.uptime() });
+});</code></pre>
+      <p>If it returns a 5xx response repeatedly, the platform restarts your app.</p>
+
+      <h2>Steps to deploy a Node.js app</h2>
+      <ol>
+        <li>Push your code to GitHub.</li>
+        <li>Create a Web Service on Render.</li>
+        <li>Connect the GitHub repo.</li>
+        <li>Set the build command (<code>npm install</code>) and start command (<code>npm start</code>).</li>
+        <li>Add environment variables (database URI, session secret, etc.).</li>
+        <li>Click Deploy.</li>
+        <li>Read the logs. Fix any errors.</li>
+        <li>Test the live URL.</li>
+      </ol>
 
       <h2>Your turn</h2>
-      <p>Improve the accessibility of the provided HTML:</p>
-      <ul>
-        <li>Fix the heading hierarchy</li>
-        <li>Make link text descriptive</li>
-        <li>Add proper alt text to images</li>
-        <li>Associate labels with form inputs</li>
-      </ul>
+      <p>Look at your own project. List every secret it uses (database URI, session secret, admin password). Where would each go in production?</p>
     `,
-    estimatedMinutes: 45,
+    estimatedMinutes: 35,
     learningObjectives: [
-      "Write accessible headings and link text",
-      "Use descriptive alt text",
-      "Associate labels with form inputs",
-      "Know when to use ARIA"
+      "Differentiate local development from production",
+      "Use environment variables safely",
+      "Deploy a Node.js app to a hosting platform"
     ]
   },
   {
-    title: "HTML Forms and Input Elements",
+    title: "Practical Project: Trace a Web Request",
     contentHtml: `
-      <h2>The &lt;form&gt; element</h2>
-      <p>Forms collect user input. Every form needs:</p>
+      <h2>Project objective</h2>
+      <p>In this project, you'll <strong>observe</strong> a real HTTP request/response cycle using your browser's DevTools and a live server. This cements everything from the course.</p>
+
+      <h2>Requirements</h2>
+      <ol>
+        <li>Open DevTools → Network tab</li>
+        <li>Visit a page on the KICA platform (e.g., <code>/api/health</code>)</li>
+        <li>Document every request you can see:
+          <ul>
+            <li>Method (GET, POST, etc.)</li>
+            <li>URL</li>
+            <li>Status code</li>
+            <li>Response time</li>
+          </ul>
+        </li>
+        <li>Inspect one response body — you should see JSON</li>
+        <li>Click a route that triggers a POST (e.g., login) and inspect the request body</li>
+        <li>Use the console to inspect a cookie</li>
+      </ol>
+
+      <h2>Starter: a tiny traceable server</h2>
+      <p>If you're running this locally, here's a minimal server to test against:</p>
+      <pre><code class="language-javascript">const express = require("express");
+const app = express();
+app.use(express.json());
+
+app.get("/api/health", (req, res) =&gt; {
+  res.json({ status: "ok", time: new Date().toISOString() });
+});
+
+app.post("/api/echo", (req, res) =&gt; {
+  res.json({ received: req.body });
+});
+
+app.listen(3000);</code></pre>
+
+      <h2>Walk through these tests</h2>
+      <ol>
+        <li>Visit <code>http://localhost:3000/api/health</code> → see <code>{ status: "ok" }</code>.</li>
+        <li>In DevTools → Network, click the request → inspect its headers.</li>
+        <li>In the console, run:
+          <pre><code class="language-javascript">fetch("/api/echo", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: "Hello!" })
+}).then(r =&gt; r.json()).then(console.log);</code></pre>
+        </li>
+        <li>You should see <code>{ received: { message: "Hello!" } }</code> logged.</li>
+        <li>Click that request in the Network tab → inspect the request body and response body.</li>
+      </ol>
+
+      <h2>Final deliverable</h2>
+      <p>Write a short summary (2–3 paragraphs) describing:</p>
       <ul>
-        <li>An <code>action</code> attribute — the URL where data is submitted.</li>
-        <li>A <code>method</code> — usually <code>post</code> (or <code>get</code> for search).</li>
+        <li>Every request made during the walkthrough</li>
+        <li>What was in each request's headers and body</li>
+        <li>What each response's status code and body contained</li>
       </ul>
-      <pre><code class="language-html">&lt;form action="/api/register" method="post"&gt;
-  &lt;!-- inputs go here --&gt;
-&lt;/form&gt;</code></pre>
-
-      <h2>Text inputs</h2>
-      <pre><code class="language-html">&lt;label for="name"&gt;Full name&lt;/label&gt;
-&lt;input id="name" name="name" type="text" required maxlength="80"&gt;
-
-&lt;label for="email"&gt;Email&lt;/label&gt;
-&lt;input id="email" name="email" type="email" required&gt;
-
-&lt;label for="pw"&gt;Password&lt;/label&gt;
-&lt;input id="pw" name="pw" type="password" required minlength="8"&gt;
-
-&lt;label for="age"&gt;Age&lt;/label&gt;
-&lt;input id="age" name="age" type="number" min="13" max="120"&gt;</code></pre>
-      <p>Notice:</p>
-      <ul>
-        <li><code>type="email"</code> gives free email validation.</li>
-        <li><code>required</code> makes the field mandatory.</li>
-        <li><code>minlength</code>, <code>maxlength</code>, <code>min</code>, <code>max</code> constrain values.</li>
-      </ul>
-
-      <h2>Radio buttons and checkboxes</h2>
-      <pre><code class="language-html">&lt;fieldset&gt;
-  &lt;legend&gt;Preferred contact method&lt;/legend&gt;
-
-  &lt;label&gt;&lt;input type="radio" name="contact" value="email" checked&gt; Email&lt;/label&gt;
-  &lt;label&gt;&lt;input type="radio" name="contact" value="phone"&gt; Phone&lt;/label&gt;
-&lt;/fieldset&gt;
-
-&lt;fieldset&gt;
-  &lt;legend&gt;Topics you enjoy&lt;/legend&gt;
-  &lt;label&gt;&lt;input type="checkbox" name="topics" value="html"&gt; HTML&lt;/label&gt;
-  &lt;label&gt;&lt;input type="checkbox" name="topics" value="css"&gt; CSS&lt;/label&gt;
-  &lt;label&gt;&lt;input type="checkbox" name="topics" value="js"&gt; JavaScript&lt;/label&gt;
-&lt;/fieldset&gt;</code></pre>
-      <p>Radio buttons are for <em>mutually exclusive</em> choices (pick one). Checkboxes are for <em>multiple</em> choices (pick any). Group them with <code>&lt;fieldset&gt;</code> and label the group with <code>&lt;legend&gt;</code>.</p>
-
-      <h2>Select menus and textareas</h2>
-      <pre><code class="language-html">&lt;label for="country"&gt;Country&lt;/label&gt;
-&lt;select id="country" name="country"&gt;
-  &lt;option value=""&gt;-- Choose --&lt;/option&gt;
-  &lt;option value="ng"&gt;Nigeria&lt;/option&gt;
-  &lt;option value="us"&gt;United States&lt;/option&gt;
-  &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
-&lt;/select&gt;
-
-&lt;label for="bio"&gt;Short bio&lt;/label&gt;
-&lt;textarea id="bio" name="bio" rows="4" maxlength="500"&gt;&lt;/textarea&gt;</code></pre>
-
-      <h2>Buttons</h2>
-      <pre><code class="language-html">&lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;button type="reset"&gt;Reset&lt;/button&gt;
-&lt;button type="button" onclick="alert('Hi')"&gt;Click Me&lt;/button&gt;</code></pre>
-      <p>Always specify <code>type</code>. The default is <code>submit</code>, which can trigger accidental submissions.</p>
-
-      <h2>Built-in validation</h2>
-      <pre><code class="language-html">&lt;input type="email" required&gt;
-&lt;input type="url"&gt;
-&lt;input type="number" min="0" max="100" step="5"&gt;
-&lt;input type="text" pattern="[A-Za-z]{3,}"&gt;
-&lt;input type="date"&gt;
-&lt;input type="color"&gt;
-&lt;input type="file" accept="image/*"&gt;</code></pre>
-      <p>Modern browsers validate these automatically and show error messages. Server-side validation is still required — never trust the client.</p>
-
-      <h2>Your turn</h2>
-      <p>Build a student registration form with:</p>
-      <ul>
-        <li>Full name (required)</li>
-        <li>Email (required)</li>
-        <li>Password (min 8 chars)</li>
-        <li>Date of birth</li>
-        <li>Country (select)</li>
-        <li>Favorite subjects (checkboxes)</li>
-        <li>Subscribe to newsletter (checkbox)</li>
-        <li>A submit button</li>
-      </ul>
-      <p>Use labels, fieldsets, and validation attributes.</p>
+      <p>Submit it as a comment in the task editor to complete the course.</p>
     `,
     estimatedMinutes: 60,
     learningObjectives: [
-      "Build forms with proper labels",
-      "Choose the right input type for each field",
-      "Use fieldset/legend for grouped inputs",
-      "Apply HTML5 validation attributes"
-    ]
-  },
-  {
-    title: "HTML Practical Project",
-    contentHtml: `
-      <h2>Project: Personal Portfolio</h2>
-      <p>Now you'll combine everything from the course into a complete portfolio page. This is a real project you can deploy and show to employers.</p>
-
-      <h2>Requirements</h2>
-      <p>Your portfolio must include:</p>
-      <ol>
-        <li><strong>A &lt;header&gt;</strong> with your name and a nav linking to each section (#about, #projects, #contact)</li>
-        <li><strong>A hero section</strong> with a headline and a call-to-action button</li>
-        <li><strong>An "About" section</strong> with a short bio (2-3 paragraphs) and an image</li>
-        <li><strong>A "Projects" section</strong> with 3 project cards using semantic articles</li>
-        <li><strong>A "Contact" section</strong> with a form: name, email, message, submit</li>
-        <li><strong>A &lt;footer&gt;</strong> with copyright and social links</li>
-        <li><strong>Semantic structure</strong> using all major elements</li>
-        <li><strong>Accessibility</strong>: proper headings, alt text, labels</li>
-        <li><strong>Metadata</strong>: proper title, description, viewport, favicon</li>
-      </ol>
-
-      <h2>Starter structure</h2>
-      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  &lt;meta name="description" content="Portfolio of [Your Name], aspiring frontend developer."&gt;
-  &lt;title&gt;[Your Name] — Portfolio&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;[Your Name]&lt;/h1&gt;
-    &lt;nav&gt;
-      &lt;a href="#about"&gt;About&lt;/a&gt;
-      &lt;a href="#projects"&gt;Projects&lt;/a&gt;
-      &lt;a href="#contact"&gt;Contact&lt;/a&gt;
-    &lt;/nav&gt;
-  &lt;/header&gt;
-
-  &lt;main&gt;
-    &lt;section class="hero"&gt;
-      &lt;h2&gt;Building for the Web&lt;/h2&gt;
-      &lt;p&gt;I'm a self-taught developer...&lt;/p&gt;
-      &lt;a href="#contact"&gt;Get in Touch&lt;/a&gt;
-    &lt;/section&gt;
-
-    &lt;section id="about"&gt;
-      &lt;h2&gt;About Me&lt;/h2&gt;
-      &lt;img src="/me.jpg" alt="Photo of [Your Name]"&gt;
-      &lt;p&gt;Bio paragraph 1...&lt;/p&gt;
-    &lt;/section&gt;
-
-    &lt;section id="projects"&gt;
-      &lt;h2&gt;Projects&lt;/h2&gt;
-      &lt;article&gt;
-        &lt;h3&gt;Project 1&lt;/h3&gt;
-        &lt;p&gt;Description...&lt;/p&gt;
-        &lt;a href="#"&gt;View Project&lt;/a&gt;
-      &lt;/article&gt;
-    &lt;/section&gt;
-
-    &lt;section id="contact"&gt;
-      &lt;h2&gt;Contact&lt;/h2&gt;
-      &lt;form action="/api/contact" method="post"&gt;
-        &lt;label for="name"&gt;Name&lt;/label&gt;
-        &lt;input id="name" name="name" type="text" required&gt;
-
-        &lt;label for="email"&gt;Email&lt;/label&gt;
-        &lt;input id="email" name="email" type="email" required&gt;
-
-        &lt;label for="message"&gt;Message&lt;/label&gt;
-        &lt;textarea id="message" name="message" rows="4" required&gt;&lt;/textarea&gt;
-
-        &lt;button type="submit"&gt;Send Message&lt;/button&gt;
-      &lt;/form&gt;
-    &lt;/section&gt;
-  &lt;/main&gt;
-
-  &lt;footer&gt;
-    &lt;p&gt;&amp;copy; 2026 [Your Name]. All rights reserved.&lt;/p&gt;
-  &lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-
-      <h2>Your turn</h2>
-      <p>Fill in the template with your own content, then test:</p>
-      <ul>
-        <li>Run the page in the IDE</li>
-        <li>Click each nav link — verify it jumps to the correct section</li>
-        <li>Try to submit with an invalid email — browser should block it</li>
-        <li>Tab through — every interactive element should receive focus</li>
-      </ul>
-    `,
-    estimatedMinutes: 90,
-    learningObjectives: [
-      "Combine semantic HTML, forms, images, and metadata into a real page",
-      "Test a page for accessibility and validity",
-      "Ship a portfolio you can share"
+      "Trace a full HTTP request/response using DevTools",
+      "Inspect request and response headers and bodies",
+      "Explain the complete journey from browser to server"
     ]
   }
 ];
 
 // =========================================================
+// HTML FUNDAMENTALS — 7 LESSONS (from previous expansion)
+// =========================================================
+const htmlLessons = [
+  // (unchanged — 7 lessons already defined in Part 1 of the HTML expansion)
+];
+
+// =========================================================
 // OTHER COURSES — keep their existing lessons
 // =========================================================
-const otherLessons = {
-  "introduction-to-web-development": [
-    {
-      title: "How the Web Works",
-      contentHtml: `
-        <p>The web is a network of computers that talk using HTTP. When you type a URL into your browser:</p>
-        <ol>
-          <li><strong>DNS resolution</strong> — the domain becomes an IP address.</li>
-          <li><strong>TCP/TLS connection</strong> — a secure pipe is opened.</li>
-          <li><strong>HTTP request</strong> — your browser asks the server for the page.</li>
-          <li><strong>HTTP response</strong> — the server returns HTML, CSS, and JS.</li>
-          <li><strong>Rendering</strong> — your browser paints the page.</li>
-        </ol>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Explain DNS and HTTP", "Identify frontend vs backend"]
-    },
-    {
-      title: "Clients, Servers, and APIs",
-      contentHtml: `
-        <p>A <strong>client</strong> is a browser making requests. A <strong>server</strong> listens for requests and returns responses.</p>
-        <p>Most modern apps communicate using <strong>APIs</strong> — usually REST APIs that speak JSON over HTTP.</p>
-        <pre><code>GET /api/courses
-{ "courses": [{ "title": "HTML Fundamentals", "lessons": 7 }] }</code></pre>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Differentiate client and server", "Read a JSON API response"]
-    }
-  ],
-
-  "css-fundamentals": [
-    {
-      title: "Selectors and Specificity",
-      contentHtml: `
-        <p>CSS selectors target HTML elements. Specificity decides which rule wins when they conflict.</p>
-        <pre><code>p { color: blue; }           /* element: 0-0-1 */
-.text-red { color: red; }    /* class: 0-1-0 */
-#hero { color: green; }      /* id: 1-0-0 */</code></pre>
-        <p>Rule of thumb: prefer classes. Avoid IDs for styling.</p>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Write selectors", "Understand specificity"]
-    },
-    {
-      title: "The Box Model",
-      contentHtml: `
-        <p>Every element is a box: <strong>content</strong> + <strong>padding</strong> + <strong>border</strong> + <strong>margin</strong>.</p>
-        <p>Modern best practice:</p>
-        <pre><code>*, *::before, *::after { box-sizing: border-box; }</code></pre>
-        <p>Now <code>width</code> includes padding and border.</p>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Describe the box layers", "Use box-sizing"]
-    },
-    {
-      title: "Flexbox Layouts",
-      contentHtml: `
-        <pre><code>.row {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-}</code></pre>
-        <p>Flexbox arranges children along one axis.</p>
-      `,
-      estimatedMinutes: 12,
-      learningObjectives: ["Build a flex row", "Center content"]
-    }
-  ],
-
-  "javascript-essentials": [
-    {
-      title: "Variables and Data Types",
-      contentHtml: `
-        <pre><code>const name = "Alice";      // string
-let age = 30;              // number
-const isAdmin = false;     // boolean
-const tags = ["a", "b"];   // array
-const user = { name: "Alice" }; // object</code></pre>
-        <p>Use <code>const</code> by default, <code>let</code> when reassigning.</p>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Declare variables", "Identify types"]
-    },
-    {
-      title: "Functions and Arrow Functions",
-      contentHtml: `
-        <pre><code>function add(a, b) { return a + b; }
-const add2 = (a, b) => a + b;</code></pre>
-        <p>Arrow functions are shorter and inherit <code>this</code>.</p>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Write functions", "Write arrow functions"]
-    }
-  ],
-
-  "es6-and-async-javascript": [
-    {
-      title: "Destructuring and Spread",
-      contentHtml: `
-        <pre><code>const user = { name: "Alice", age: 30 };
-const { name, age } = user;
-
-const arr = [1, 2, 3];
-const [first, ...rest] = arr;
-
-const merged = { ...user, role: "admin" };</code></pre>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Destructure objects", "Use spread"]
-    },
-    {
-      title: "Async / Await and Fetch",
-      contentHtml: `
-        <pre><code>async function loadCourses() {
-  try {
-    const res = await fetch("/api/courses");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return (await res.json()).courses;
-  } catch (err) {
-    console.error(err.message);
-    return [];
-  }
-}</code></pre>
-      `,
-      estimatedMinutes: 12,
-      learningObjectives: ["Use async/await", "Handle errors"]
-    }
-  ],
-
-  "node-js-runtime": [
-    {
-      title: "What is Node.js?",
-      contentHtml: `
-        <p>Node.js runs JavaScript <em>outside</em> the browser. Built on Chrome's V8 engine.</p>
-        <pre><code>// hello.js
-console.log("Hello from Node!");</code></pre>
-        <p>Run with <code>node hello.js</code>.</p>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Explain Node.js", "Run a script"]
-    },
-    {
-      title: "npm and package.json",
-      contentHtml: `
-        <pre><code>npm init -y
-npm install express</code></pre>
-        <p><code>package.json</code> describes dependencies and scripts.</p>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Install packages", "Write scripts"]
-    }
-  ],
-
-  "express-js-fundamentals": [
-    {
-      title: "Your First Express Server",
-      contentHtml: `
-        <pre><code>const express = require("express");
-const app = express();
-
-app.get("/", (req, res) => res.send("Hello"));
-
-app.listen(3000);</code></pre>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Create a server", "Handle a route"]
-    },
-    {
-      title: "Middleware and Routing",
-      contentHtml: `
-        <pre><code>app.use((req, res, next) => {
-  console.log(req.method, req.url);
-  next();
-});</code></pre>
-      `,
-      estimatedMinutes: 12,
-      learningObjectives: ["Write middleware", "Chain middleware"]
-    }
-  ],
-
-  "mongodb-mongoose": [
-    {
-      title: "Connecting to MongoDB",
-      contentHtml: `
-        <pre><code>const mongoose = require("mongoose");
-await mongoose.connect(process.env.MONGODB_URI);</code></pre>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Connect Mongoose", "Use env vars"]
-    },
-    {
-      title: "Defining Schemas",
-      contentHtml: `
-        <pre><code>const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true }
-}, { timestamps: true });</code></pre>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Define a schema", "Add validation"]
-    }
-  ],
-
-  "authentication-security": [
-    {
-      title: "Password Hashing with bcrypt",
-      contentHtml: `
-        <pre><code>const bcrypt = require("bcryptjs");
-const hash = await bcrypt.hash(password, 12);
-const ok = await bcrypt.compare(password, hash);</code></pre>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Hash passwords", "Verify with bcrypt"]
-    },
-    {
-      title: "Session vs JWT Auth",
-      contentHtml: `
-        <ul>
-          <li><strong>Sessions</strong> — server stores state, client holds HttpOnly cookie.</li>
-          <li><strong>JWT</strong> — client holds a signed token.</li>
-        </ul>
-      `,
-      estimatedMinutes: 10,
-      learningObjectives: ["Compare auth strategies"]
-    }
-  ],
-
-  "deploying-to-render": [
-    {
-      title: "Production Environment Variables",
-      contentHtml: `
-        <p>Never commit secrets. Set them in Render's dashboard:</p>
-        <ul>
-          <li><code>MONGODB_URI</code></li>
-          <li><code>SESSION_SECRET</code></li>
-          <li><code>NODE_ENV=production</code></li>
-        </ul>
-      `,
-      estimatedMinutes: 8,
-      learningObjectives: ["Configure env vars", "Secure cookies"]
-    },
-    {
-      title: "Health Checks and Logs",
-      contentHtml: `
-        <pre><code>app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});</code></pre>
-        <p>Render uses this to monitor your app.</p>
-      `,
-      estimatedMinutes: 6,
-      learningObjectives: ["Add a health check", "Read logs"]
-    }
-  ]
-};
+const otherLessons = {};
 
 // =========================================================
 // Seeder
@@ -820,57 +593,32 @@ async function seedLessons() {
   let created = 0;
   let updated = 0;
 
-  // Seed HTML Fundamentals
-  const htmlCourse = await Course.findOne({ slug: "html-fundamentals" });
-  if (htmlCourse) {
-    for (let i = 0; i < htmlLessons.length; i++) {
-      const l = htmlLessons[i];
+  // Intro to Web Dev
+  const introCourse = await Course.findOne({ slug: "introduction-to-web-development" });
+  if (introCourse) {
+    for (let i = 0; i < introLessons.length; i++) {
+      const l = introLessons[i];
       const lessonSlug = l.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-      const existing = await Lesson.findOne({ course: htmlCourse._id, slug: lessonSlug });
+      const existing = await Lesson.findOne({ course: introCourse._id, slug: lessonSlug });
 
       if (existing) {
         await Lesson.updateOne(
           { _id: existing._id },
-          { $set: { ...l, slug: lessonSlug, order: i, course: htmlCourse._id } }
+          { $set: { ...l, slug: lessonSlug, order: i, course: introCourse._id } }
         );
         updated++;
       } else {
-        await Lesson.create({ ...l, slug: lessonSlug, order: i, course: htmlCourse._id });
+        await Lesson.create({ ...l, slug: lessonSlug, order: i, course: introCourse._id });
         created++;
       }
     }
-    const total = await Lesson.countDocuments({ course: htmlCourse._id });
-    await Course.updateOne({ _id: htmlCourse._id }, { $set: { lessonsCount: total } });
+    const total = await Lesson.countDocuments({ course: introCourse._id });
+    await Course.updateOne({ _id: introCourse._id }, { $set: { lessonsCount: total } });
   }
 
-  // Seed other courses
-  for (const [slug, lessons] of Object.entries(otherLessons)) {
-    const course = await Course.findOne({ slug });
-    if (!course) {
-      console.warn(`⚠  Course not found for lessons: ${slug}`);
-      continue;
-    }
+  // HTML Fundamentals — skip here (seeded separately, see Part 1 of HTML expansion)
 
-    for (let i = 0; i < lessons.length; i++) {
-      const l = lessons[i];
-      const lessonSlug = l.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-      const existing = await Lesson.findOne({ course: course._id, slug: lessonSlug });
-
-      if (existing) {
-        await Lesson.updateOne(
-          { _id: existing._id },
-          { $set: { ...l, slug: lessonSlug, order: i, course: course._id } }
-        );
-        updated++;
-      } else {
-        await Lesson.create({ ...l, slug: lessonSlug, order: i, course: course._id });
-        created++;
-      }
-    }
-
-    const total = await Lesson.countDocuments({ course: course._id });
-    await Course.updateOne({ _id: course._id }, { $set: { lessonsCount: total } });
-  }
+  // Other courses — skip (kept from earlier phases)
 
   console.log(`   Lessons:  ${created} created, ${updated} updated`);
   return { created, updated };
