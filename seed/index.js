@@ -18,10 +18,13 @@ const { seedExercises } = require("./exercises.seed");
 const { seedQuizzes } = require("./quizzes.seed");
 const { seedProjects } = require("./projects.seed");
 
-// Targeted seeders (Introduction to Web Development only)
+// Targeted seeders (per-course)
 const { seedIntroLessons } = require("./intro-lessons.seed");
 const { seedIntroExercises } = require("./intro-exercises.seed");
 const { seedIntroQuiz } = require("./intro-quiz.seed");
+const { seedNodeLessons } = require("./nodejs-lessons.seed");
+const { seedNodeExercises } = require("./nodejs-exercises.seed");
+const { seedNodeQuiz } = require("./nodejs-quiz.seed");
 
 async function upsertUser({ name, email, password, role }) {
   if (!email || !password || !name) throw new Error(`Missing seed values for role=${role}`);
@@ -46,6 +49,7 @@ async function main() {
   console.log("\n🌱 Seeding Kelvin Ikpeni Code Academy database...\n");
   await connectDB();
 
+  // ---- Users ----
   const admin = await upsertUser({
     name: process.env.ADMIN_NAME || "Kelvin Ikpeni",
     email: process.env.ADMIN_EMAIL,
@@ -60,33 +64,45 @@ async function main() {
     role: "student"
   });
 
+  // ---- Courses ----
   console.log("\n📚 Seeding courses...\n");
   await seedCourses(admin._id);
 
+  // ---- Lessons ----
   console.log("\n📖 Seeding lessons (base)...\n");
   await seedLessons();
 
-  // Targeted: replaces ONLY Introduction to Web Development lessons
   console.log("\n📖 Seeding Introduction to Web Development lessons...\n");
   await seedIntroLessons();
 
+  console.log("\n📖 Seeding Node.js Runtime lessons...\n");
+  await seedNodeLessons();
+
+  // ---- Exercises ----
   console.log("\n🧪 Seeding exercises (base)...\n");
   await seedExercises();
 
-  // Targeted: adds ONLY Introduction to Web Development exercises
   console.log("\n🧪 Seeding Introduction to Web Development exercises...\n");
   await seedIntroExercises();
 
+  console.log("\n🧪 Seeding Node.js Runtime exercises...\n");
+  await seedNodeExercises();
+
+  // ---- Quizzes ----
   console.log("\n📝 Seeding quizzes (base)...\n");
   await seedQuizzes();
 
-  // Targeted: replaces ONLY Introduction to Web Development quiz
   console.log("\n📝 Seeding Introduction to Web Development quiz...\n");
   await seedIntroQuiz();
 
+  console.log("\n📝 Seeding Node.js Runtime quiz...\n");
+  await seedNodeQuiz();
+
+  // ---- Projects ----
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();
 
+  // ---- Summary ----
   const totalUsers = await User.countDocuments();
   const totalCourses = await Course.countDocuments();
   const totalLessons = await Lesson.countDocuments();
