@@ -37,6 +37,9 @@ const { seedJsQuiz } = require("./js-quiz.seed");
 const { seedEs6Lessons } = require("./es6-lessons.seed");
 const { seedEs6Exercises } = require("./es6-exercises.seed");
 const { seedEs6Quiz } = require("./es6-quiz.seed");
+const { seedMongoLessons } = require("./mongodb-lessons.seed");
+const { seedMongoExercises } = require("./mongodb-exercises.seed");
+const { seedMongoQuiz } = require("./mongodb-quiz.seed");
 
 async function upsertUser({ name, email, password, role }) {
   if (!email || !password || !name) throw new Error(`Missing seed values for role=${role}`);
@@ -99,6 +102,9 @@ async function main() {
   console.log("\n📖 Seeding ES6+ & Async JavaScript lessons...\n");
   await seedEs6Lessons();
 
+  console.log("\n📖 Seeding MongoDB & Mongoose lessons...\n");
+  await seedMongoLessons();
+
   console.log("\n🧪 Seeding exercises (base)...\n");
   await seedExercises();
 
@@ -120,6 +126,9 @@ async function main() {
   console.log("\n🧪 Seeding ES6+ & Async JavaScript exercises...\n");
   await seedEs6Exercises();
 
+  console.log("\n🧪 Seeding MongoDB & Mongoose exercises...\n");
+  await seedMongoExercises();
+
   console.log("\n📝 Seeding quizzes (base)...\n");
   await seedQuizzes();
 
@@ -140,6 +149,9 @@ async function main() {
 
   console.log("\n📝 Seeding ES6+ & Async JavaScript quiz...\n");
   await seedEs6Quiz();
+
+  console.log("\n📝 Seeding MongoDB & Mongoose quiz...\n");
+  await seedMongoQuiz();
 
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();
