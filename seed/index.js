@@ -28,6 +28,9 @@ const { seedNodeQuiz } = require("./nodejs-quiz.seed");
 const { seedExpressLessons } = require("./express-lessons.seed");
 const { seedExpressExercises } = require("./express-exercises.seed");
 const { seedExpressQuiz } = require("./express-quiz.seed");
+const { seedCssLessons } = require("./css-lessons.seed");
+const { seedCssExercises } = require("./css-exercises.seed");
+const { seedCssQuiz } = require("./css-quiz.seed");
 
 async function upsertUser({ name, email, password, role }) {
   if (!email || !password || !name) throw new Error(`Missing seed values for role=${role}`);
@@ -81,6 +84,9 @@ async function main() {
   console.log("\n📖 Seeding Express.js Fundamentals lessons...\n");
   await seedExpressLessons();
 
+  console.log("\n📖 Seeding CSS Fundamentals lessons...\n");
+  await seedCssLessons();
+
   console.log("\n🧪 Seeding exercises (base)...\n");
   await seedExercises();
 
@@ -93,6 +99,9 @@ async function main() {
   console.log("\n🧪 Seeding Express.js Fundamentals exercises...\n");
   await seedExpressExercises();
 
+  console.log("\n🧪 Seeding CSS Fundamentals exercises...\n");
+  await seedCssExercises();
+
   console.log("\n📝 Seeding quizzes (base)...\n");
   await seedQuizzes();
 
@@ -104,6 +113,9 @@ async function main() {
 
   console.log("\n📝 Seeding Express.js Fundamentals quiz...\n");
   await seedExpressQuiz();
+
+  console.log("\n📝 Seeding CSS Fundamentals quiz...\n");
+  await seedCssQuiz();
 
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();
