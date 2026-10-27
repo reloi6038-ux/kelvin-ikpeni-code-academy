@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#5b7cfa" />
   <title>Practice — Kelvin Ikpeni Code Academy</title>
-  <meta name="description" content="Solve coding exercises in HTML, CSS, JavaScript, Node.js, and Express." />
+  <meta name="description" content="Sharpen your skills with interactive coding exercises across HTML, CSS, JavaScript, Node.js, and Express." />
   <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/images/brand/favicon.svg" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
   <script src="/js/theme.js"></script>
 </head>
 <body data-page="practice">
@@ -18,15 +19,151 @@
 
   <main>
     <section class="section container">
-      <header class="section-header">
+      <header class="section-header" style="text-align:center; max-width: 100%;">
         <p class="eyebrow">Sharpen Your Skills</p>
-        <h1>Practice Exercises</h1>
-        <p>Write code, run tests, and level up. New exercises added regularly.</p>
+        <h1>Interactive Coding Practice</h1>
+        <p style="margin-inline:auto; max-width: 60ch;">
+          Test your knowledge with auto-graded coding challenges. Filter by track, 
+          or jump into a random exercise to keep your skills sharp.
+        </p>
       </header>
 
-      <div class="card-grid" id="exercise-grid">
-        <p style="color:var(--color-text-muted)">Loading exercises…</p>
+      <!-- 1. TRACK-BASED EXERCISE LISTS (2-Column Layout matching Courses) -->
+      <div class="dashboard-grid" style="margin-top: 3rem;">
+        
+        <!-- FRONTEND EXERCISES -->
+        <div>
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+            <span style="font-size:1.5rem;">🎨</span>
+            <h2 style="margin:0; font-size:1.4rem;">Frontend Exercises</h2>
+          </div>
+          
+          <div class="course-list">
+            <!-- HTML Practice -->
+            <a href="/practice.html?language=html" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">HTML</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">HTML Practice</h4>
+                <p>Semantic markup, forms, lists, and structure.</p>
+              </div>
+              <span class="badge badge-beginner">20 Exercises</span>
+            </a>
+
+            <!-- CSS Practice -->
+            <a href="/practice.html?language=css" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">CSS</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">CSS Practice</h4>
+                <p>Styling, flexbox, grid, and responsive layouts.</p>
+              </div>
+              <span class="badge badge-beginner">25 Exercises</span>
+            </a>
+
+            <!-- JavaScript Practice -->
+            <a href="/practice.html?language=javascript" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #eab308, #f59e0b); color: #000;">JS</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">JavaScript Practice</h4>
+                <p>Functions, arrays, objects, and ES6+ syntax.</p>
+              </div>
+              <span class="badge badge-intermediate">49 Exercises</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- BACKEND EXERCISES -->
+        <div>
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+            <span style="font-size:1.5rem;">⚙️</span>
+            <h2 style="margin:0; font-size:1.4rem;">Backend Exercises</h2>
+          </div>
+
+          <div class="course-list">
+            <!-- Node Practice -->
+            <a href="/practice.html?language=node" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);">Node</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">Node.js Practice</h4>
+                <p>Modules, file system, events, and process.</p>
+              </div>
+              <span class="badge badge-beginner">20 Exercises</span>
+            </a>
+
+            <!-- MongoDB Practice (Simulated / Pattern Match) -->
+            <a href="/practice.html?language=node" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #10b981, #047857);">DB</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">MongoDB Practice</h4>
+                <p>Schemas, CRUD, queries, and relationships.</p>
+              </div>
+              <span class="badge badge-intermediate">15 Exercises</span>
+            </a>
+
+            <!-- Express Practice -->
+            <a href="/practice.html?language=express" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #64748b, #334155);">Express</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">Express.js Practice</h4>
+                <p>Routing, middleware, and REST API design.</p>
+              </div>
+              <span class="badge badge-intermediate">20 Exercises</span>
+            </a>
+          </div>
+        </div>
       </div>
+
+      <!-- 2. SPECIALIZED CHALLENGES (3-Column Grid matching Featured Courses) -->
+      <div style="margin-top: 4rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+          <span style="font-size:1.5rem;">🔥</span>
+          <h2 style="margin:0; font-size:1.4rem;">Specialized Challenges</h2>
+        </div>
+
+        <div class="card-grid">
+          <!-- Debugging -->
+          <article class="card card-hover">
+            <span class="badge badge-intermediate">Intermediate</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Debugging Challenges</h3>
+            <p class="card-text">Find and fix bugs in broken code. Learn to read error messages and trace logic.</p>
+            <a class="btn btn-outline btn-sm" href="/practice.html?topic=debugging" style="margin-top:1rem;">Solve Challenges</a>
+          </article>
+
+          <!-- Security -->
+          <article class="card card-hover">
+            <span class="badge badge-advanced">Advanced</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Security Practice</h3>
+            <p class="card-text">Hashing, session management, and safe data handling patterns.</p>
+            <a class="btn btn-outline btn-sm" href="/practice.html?topic=security" style="margin-top:1rem;">Solve Challenges</a>
+          </article>
+
+          <!-- Deployment -->
+          <article class="card card-hover">
+            <span class="badge badge-advanced">Advanced</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Deployment & Ops</h3>
+            <p class="card-text">Environment variables, health checks, and production configuration.</p>
+            <a class="btn btn-outline btn-sm" href="/practice.html?topic=deployment" style="margin-top:1rem;">Solve Challenges</a>
+          </article>
+        </div>
+      </div>
+
+      <!-- 3. ALL EXERCISES CATALOGUE (Dynamic) -->
+      <div style="margin-top: 5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h2 style="margin:0; font-size:1.4rem;">Complete Exercise Catalogue</h2>
+            <p style="margin:0; color:var(--color-text-muted);">Browse, search, and filter all 202 exercises.</p>
+          </div>
+          
+          <!-- Search Input -->
+          <input class="input" id="exercise-search" placeholder="Search exercises by title..." style="max-width: 300px;" />
+        </div>
+
+        <!-- Dynamic Exercise Grid (Javascript renders into this) -->
+        <div class="card-grid" id="exercise-grid">
+          <p style="color:var(--color-text-muted)">Loading exercises…</p>
+        </div>
+      </div>
+
     </section>
   </main>
 
