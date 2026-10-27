@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#5b7cfa" />
   <title>Courses — Kelvin Ikpeni Code Academy</title>
-  <meta name="description" content="Browse frontend and backend development courses at Kelvin Ikpeni Code Academy." />
+  <meta name="description" content="Explore our structured learning paths in Frontend, Backend, and Fullstack development." />
   <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg" />
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/images/brand/favicon.svg" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
   <script src="/js/theme.js"></script>
 </head>
 <body data-page="courses">
@@ -18,21 +19,174 @@
 
   <main>
     <section class="section container">
-      <header class="section-header">
+      <header class="section-header" style="text-align:center; max-width: 100%;">
         <p class="eyebrow">Curriculum</p>
-        <h1>All Courses</h1>
-        <p>Structured learning paths from beginner to job-ready. Select a course to see the full curriculum and enrol.</p>
+        <h1>Explore Our Learning Tracks</h1>
+        <p style="margin-inline:auto; max-width: 60ch;">
+          Master the full stack. Every track is designed to take you from absolute beginner 
+          to job-ready developer through structured lessons, real projects, and verified certificates.
+        </p>
       </header>
 
-      <h2 style="margin-top:2rem;">Frontend Development</h2>
-      <div class="card-grid" id="frontend-courses">
-        <p style="color:var(--color-text-muted)">Loading courses…</p>
+      <!-- FEATURED TRACKS (2-Column Layout) -->
+      <div class="dashboard-grid" style="margin-top: 3rem;">
+        
+        <!-- FRONTEND TRACK -->
+        <div>
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+            <span style="font-size:1.5rem;">🎨</span>
+            <h2 style="margin:0; font-size:1.4rem;">Frontend Engineering</h2>
+          </div>
+          
+          <div class="course-list">
+            <!-- HTML -->
+            <a href="/course-details.html?slug=html-fundamentals" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">HTML</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">HTML Fundamentals</h4>
+                <p>Semantic markup, forms, and document structure.</p>
+              </div>
+              <span class="badge badge-beginner">Beginner</span>
+            </a>
+
+            <!-- CSS -->
+            <a href="/course-details.html?slug=css-fundamentals" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">CSS</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">CSS Fundamentals</h4>
+                <p>Box model, flexbox, grid, responsive design, and animations.</p>
+              </div>
+              <span class="badge badge-beginner">Beginner</span>
+            </a>
+
+            <!-- JS -->
+            <a href="/course-details.html?slug=javascript-essentials" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #eab308, #f59e0b); color: #000;">JS</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">JavaScript Essentials</h4>
+                <p>Variables, functions, arrays, objects, and DOM manipulation.</p>
+              </div>
+              <span class="badge badge-intermediate">Intermediate</span>
+            </a>
+
+            <!-- ES6 -->
+            <a href="/course-details.html?slug=es6-and-async-javascript" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">ES6</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">ES6+ & Async JavaScript</h4>
+                <p>Promises, async/await, fetch API, and modern syntax.</p>
+              </div>
+              <span class="badge badge-intermediate">Intermediate</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- BACKEND TRACK -->
+        <div>
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+            <span style="font-size:1.5rem;">⚙️</span>
+            <h2 style="margin:0; font-size:1.4rem;">Backend Engineering</h2>
+          </div>
+
+          <div class="course-list">
+            <!-- Node -->
+            <a href="/course-details.html?slug=node-js-runtime" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);">Node</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">Node.js Runtime</h4>
+                <p>Modules, npm, file system, events, and async programming.</p>
+              </div>
+              <span class="badge badge-beginner">Beginner</span>
+            </a>
+
+            <!-- Express -->
+            <a href="/course-details.html?slug=express-js-fundamentals" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #64748b, #334155);">Express</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">Express.js Fundamentals</h4>
+                <p>Routing, middleware, REST API design, and error handling.</p>
+              </div>
+              <span class="badge badge-intermediate">Intermediate</span>
+            </a>
+
+            <!-- MongoDB -->
+            <a href="/course-details.html?slug=mongodb-mongoose" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #10b981, #047857);">DB</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">MongoDB & Mongoose</h4>
+                <p>Schemas, CRUD operations, relationships, and aggregation.</p>
+              </div>
+              <span class="badge badge-intermediate">Intermediate</span>
+            </a>
+
+            <!-- Auth -->
+            <a href="/course-details.html?slug=authentication-security" class="course-item" style="text-decoration:none;">
+              <div class="course-icon" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">Auth</div>
+              <div>
+                <h4 style="margin:0 0 0.25rem;">Authentication & Security</h4>
+                <p>Hashing, sessions, JWT, OWASP, and production security.</p>
+              </div>
+              <span class="badge badge-advanced">Advanced</span>
+            </a>
+          </div>
+        </div>
       </div>
 
-      <h2 style="margin-top:2.5rem;">Backend Development</h2>
-      <div class="card-grid" id="backend-courses">
-        <p style="color:var(--color-text-muted)">Loading courses…</p>
+      <!-- FULLSTACK & CAPSTONE (3-Column Grid) -->
+      <div style="margin-top: 4rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+          <span style="font-size:1.5rem;">🚀</span>
+          <h2 style="margin:0; font-size:1.4rem;">Deployment & Integration</h2>
+        </div>
+
+        <div class="card-grid">
+          <!-- Deploying to Render -->
+          <article class="card card-hover">
+            <span class="badge badge-advanced">Advanced</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Deploying to Render</h3>
+            <p class="card-text">Take your backend to production. CI/CD, environment variables, and cloud monitoring.</p>
+            <div class="card-meta">
+              <span>12 lessons</span><span>·</span><span>15 exercises</span>
+            </div>
+            <a class="btn btn-outline btn-sm" href="/course-details.html?slug=deploying-to-render" style="margin-top:1rem;">View Course</a>
+          </article>
+
+          <!-- Intro to Web Dev (Foundation) -->
+          <article class="card card-hover">
+            <span class="badge badge-beginner">Beginner</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Intro to Web Development</h3>
+            <p class="card-text">The absolute starting point. How the web works, clients, servers, and DNS.</p>
+            <div class="card-meta">
+              <span>9 lessons</span><span>·</span><span>12 exercises</span>
+            </div>
+            <a class="btn btn-outline btn-sm" href="/course-details.html?slug=introduction-to-web-development" style="margin-top:1rem;">View Course</a>
+          </article>
+
+          <!-- Capstone (Placeholder for future) -->
+          <article class="card" style="opacity: 0.7; border-style: dashed;">
+            <span class="badge">Capstone</span>
+            <h3 class="card-title" style="margin-top:0.75rem;">Full-Stack Capstone</h3>
+            <p class="card-text">Build and deploy a production-ready application from scratch. Coming soon.</p>
+            <div class="card-meta">
+              <span>Full App</span><span>·</span><span>Advanced</span>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:1rem; cursor:not-allowed;" disabled>Coming Soon</button>
+          </article>
+        </div>
       </div>
+
+      <!-- FINAL CTA -->
+      <div class="card card-elevated" style="text-align:center; padding: 3rem 2rem; margin-top: 4rem; background: var(--gradient-brand-soft); border-color: var(--color-border-glow);">
+        <h2 style="margin-bottom: 1rem;">Not sure where to start?</h2>
+        <p class="lead" style="margin-inline:auto; margin-bottom: 2rem; max-width: 500px;">
+          Take our introductory course to understand how the web works, then jump into the track that excites you most.
+        </p>
+        <div class="hero-actions" style="justify-content:center; margin:0;">
+          <a class="btn btn-primary" href="/course-details.html?slug=introduction-to-web-development">Start with the Basics</a>
+          <a class="btn btn-ghost" href="/register.html">Create Free Account</a>
+        </div>
+      </div>
+
     </section>
   </main>
 
@@ -42,7 +196,6 @@
   <script src="/js/api.js"></script>
   <script src="/js/partials.js"></script>
   <script src="/js/auth.js"></script>
-  <script src="/js/courses.js"></script>
   <script src="/js/main.js"></script>
 </body>
 </html>
