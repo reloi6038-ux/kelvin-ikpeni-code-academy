@@ -14,6 +14,7 @@ const userRoutes = require("./userRoutes");
 const projectRoutes = require("./projectRoutes");
 const certificateRoutes = require("./certificateRoutes");
 const adminRoutes = require("./adminRoutes");
+const contactRoutes = require("./contactRoutes"); // NEW
 
 const adminController = require("../controllers/adminController");
 
@@ -30,6 +31,7 @@ router.use("/users", userRoutes);
 router.use("/projects", projectRoutes);
 router.use("/certificates", certificateRoutes);
 router.use("/admin", adminRoutes);
+router.use("/contact", contactRoutes); // NEW
 
 // Public announcements
 router.get("/announcements", asyncHandler(adminController.publicAnnouncements));

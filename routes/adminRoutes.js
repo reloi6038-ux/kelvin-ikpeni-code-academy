@@ -10,6 +10,7 @@ const lessonController = require("../controllers/lessonController");
 const certificateController = require("../controllers/certificateController");
 const adminEditController = require("../controllers/adminEditController");
 const adminQuizController = require("../controllers/adminQuizController");
+const { adminListContacts, adminUpdateContact, adminDeleteContact } = require("../controllers/contactController"); // NEW
 
 const router = express.Router();
 
@@ -50,5 +51,10 @@ router.post("/certificates/:id/revoke", asyncHandler(certificateController.revok
 router.get("/announcements", asyncHandler(adminController.listAnnouncements));
 router.post("/announcements", asyncHandler(adminController.createAnnouncement));
 router.delete("/announcements/:id", asyncHandler(adminController.deleteAnnouncement));
+
+// Contacts (NEW)
+router.get("/contacts", asyncHandler(adminListContacts));
+router.patch("/contacts/:id", asyncHandler(adminUpdateContact));
+router.delete("/contacts/:id", asyncHandler(adminDeleteContact));
 
 module.exports = router;

@@ -26,6 +26,7 @@
         if (target === "quizzes") loadQuizzes();
         if (target === "certificates") loadCertificates();
         if (target === "announcements") loadAnnouncements();
+        if (target === "contacts") loadContacts();
       });
     });
   }
@@ -94,9 +95,7 @@
             await window.KICA.api.patch("/admin/users/" + id, { role: next });
             toast("Role updated to " + next, "success");
             loadUsers();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
 
@@ -108,9 +107,7 @@
             await window.KICA.api.patch("/admin/users/" + id, { isActive: !current });
             toast(!current ? "Reactivated" : "Suspended", "success");
             loadUsers();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -147,13 +144,11 @@
           openCourseEditor(btn.getAttribute("data-course-edit"));
         });
       });
-
       wrap.querySelectorAll("[data-course-lessons]").forEach(function (btn) {
         btn.addEventListener("click", function () {
           openLessonsManager(btn.getAttribute("data-course-lessons"));
         });
       });
-
       wrap.querySelectorAll("[data-course-delete]").forEach(function (btn) {
         btn.addEventListener("click", async function () {
           if (!confirm("Delete this course? This cannot be undone.")) return;
@@ -161,9 +156,7 @@
             await window.KICA.api.del("/admin/courses/" + btn.getAttribute("data-course-delete"));
             toast("Course deleted", "success");
             loadCourses();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -341,9 +334,7 @@
             await window.KICA.api.del("/admin/lessons/" + btn.getAttribute("data-lesson-del"));
             toast("Lesson deleted", "success");
             refreshLessonsList(courseSlug);
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -372,7 +363,7 @@
         '<div class="form">' +
           '<div class="field"><label>Title</label><input class="input" id="le-title" value="' + esc(lesson.title || "") + '" /></div>' +
           '<div class="field"><label>Estimated minutes</label><input class="input" type="number" id="le-minutes" value="' + (lesson.estimatedMinutes || 10) + '" /></div>' +
-          '<div class="field"><label>Content (HTML allowed — use &lt;pre&gt;&lt;code class="language-javascript"&gt;...&lt;/code&gt;&lt;/pre&gt; for code blocks)</label>' +
+          '<div class="field"><label>Content (HTML allowed)</label>' +
             '<textarea class="textarea" id="le-content" rows="14" style="font-family:var(--font-mono);font-size:0.85rem;">' + esc(lesson.contentHtml || "") + '</textarea>' +
           "</div>" +
           '<div class="field"><label>Code example (optional, shown separately)</label>' +
@@ -466,9 +457,7 @@
             await window.KICA.api.del("/admin/quizzes/" + btn.getAttribute("data-quiz-delete"));
             toast("Quiz deleted", "success");
             loadQuizzes();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -525,7 +514,6 @@
           "</div>" +
         "</div></div>";
 
-      // Questions state
       var questionsState = quiz ? quiz.questions.slice() : [];
 
       function renderQuestions() {
@@ -556,7 +544,6 @@
           "</div>";
         }).join("");
 
-        // Wire question inputs
         wrap.querySelectorAll("[data-field]").forEach(function (el) {
           el.addEventListener("input", function () {
             var i = parseInt(el.getAttribute("data-q"), 10);
@@ -564,7 +551,6 @@
             questionsState[i][field] = el.value;
           });
         });
-        // Option inputs
         wrap.querySelectorAll("[data-o][data-q]").forEach(function (el) {
           if (el.type === "radio") {
             el.addEventListener("change", function () {
@@ -580,7 +566,6 @@
             });
           }
         });
-        // Add option
         wrap.querySelectorAll("[data-add-option]").forEach(function (btn) {
           btn.addEventListener("click", function () {
             var i = parseInt(btn.getAttribute("data-add-option"), 10);
@@ -592,7 +577,6 @@
             renderQuestions();
           });
         });
-        // Remove option
         wrap.querySelectorAll("[data-remove-option]").forEach(function (btn) {
           btn.addEventListener("click", function () {
             var parts = btn.getAttribute("data-remove-option").split(":");
@@ -609,7 +593,6 @@
             renderQuestions();
           });
         });
-        // Remove question
         wrap.querySelectorAll("[data-remove-question]").forEach(function (btn) {
           btn.addEventListener("click", function () {
             var i = parseInt(btn.getAttribute("data-remove-question"), 10);
@@ -710,9 +693,7 @@
             await window.KICA.api.post("/admin/certificates/" + btn.getAttribute("data-cert-revoke") + "/revoke", { reason: "Admin action" });
             toast("Certificate revoked", "success");
             loadCertificates();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -747,9 +728,7 @@
             await window.KICA.api.del("/admin/announcements/" + btn.getAttribute("data-ann-del"));
             toast("Deleted", "success");
             loadAnnouncements();
-          } catch (err) {
-            toast(err.message || "Failed", "error");
-          }
+          } catch (err) { toast(err.message || "Failed", "error"); }
         });
       });
     } catch (err) {
@@ -792,6 +771,75 @@
       }
     });
   });
+
+  // ---------- Contacts (NEW) ----------
+  async function loadContacts() {
+    var wrap = document.getElementById("contacts-table-wrap");
+    try {
+      var res = await window.KICA.api.get("/admin/contacts");
+      if (!res.contacts.length) {
+        wrap.innerHTML = '<p style="color:var(--color-text-muted)">No messages yet.</p>';
+        return;
+      }
+      wrap.innerHTML =
+        '<table class="admin-table"><thead><tr>' +
+          "<th>From</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th>" +
+        "</tr></thead><tbody>" +
+        res.contacts.map(function (c) {
+          var statusBadge = c.status === "new"
+            ? '<span class="status-badge status-active">New</span>'
+            : c.status === "read"
+            ? '<span class="status-badge status-inactive">Read</span>'
+            : '<span class="status-badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;">Resolved</span>';
+          return "<tr>" +
+            "<td>" + esc(c.name) + "<br><small style='color:var(--color-text-muted)'>" + esc(c.email) + "</small></td>" +
+            "<td>" + esc(c.subject) + "</td>" +
+            "<td style='max-width:300px;'><details><summary style='cursor:pointer;color:var(--brand-accent);'>View</summary><p style='margin:0.5rem 0;'>" + esc(c.message) + "</p></details></td>" +
+            "<td>" + statusBadge + "</td>" +
+            "<td>" + new Date(c.createdAt).toLocaleDateString() + "</td>" +
+            "<td>" +
+              (c.status === "new" ? '<button class="btn btn-ghost btn-sm" data-contact-read="' + c.id + '">Mark Read</button> ' : '') +
+              (c.status !== "resolved" ? '<button class="btn btn-ghost btn-sm" data-contact-resolve="' + c.id + '">Resolve</button> ' : '') +
+              '<button class="btn btn-ghost btn-sm" data-contact-delete="' + c.id + '" style="color:var(--brand-danger);">Delete</button>' +
+            "</td>" +
+          "</tr>";
+        }).join("") +
+        "</tbody></table>";
+
+      wrap.querySelectorAll("[data-contact-read]").forEach(function (btn) {
+        btn.addEventListener("click", async function () {
+          try {
+            await window.KICA.api.patch("/admin/contacts/" + btn.getAttribute("data-contact-read"), { status: "read" });
+            toast("Marked as read", "success");
+            loadContacts();
+          } catch (err) { toast(err.message || "Failed", "error"); }
+        });
+      });
+
+      wrap.querySelectorAll("[data-contact-resolve]").forEach(function (btn) {
+        btn.addEventListener("click", async function () {
+          try {
+            await window.KICA.api.patch("/admin/contacts/" + btn.getAttribute("data-contact-resolve"), { status: "resolved" });
+            toast("Marked as resolved", "success");
+            loadContacts();
+          } catch (err) { toast(err.message || "Failed", "error"); }
+        });
+      });
+
+      wrap.querySelectorAll("[data-contact-delete]").forEach(function (btn) {
+        btn.addEventListener("click", async function () {
+          if (!confirm("Delete this contact message?")) return;
+          try {
+            await window.KICA.api.del("/admin/contacts/" + btn.getAttribute("data-contact-delete"));
+            toast("Contact deleted", "success");
+            loadContacts();
+          } catch (err) { toast(err.message || "Failed", "error"); }
+        });
+      });
+    } catch (err) {
+      wrap.innerHTML = '<p style="color:var(--brand-danger)">Could not load contacts.</p>';
+    }
+  }
 
   // ---------- Boot ----------
   document.addEventListener("DOMContentLoaded", function () {
