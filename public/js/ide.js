@@ -1,7 +1,7 @@
 /**
  * Kelvin Ikpeni Code Academy — Reusable IDE component
  * Uses CodeMirror if available, falls back to <textarea>.
- * Handles HTML, CSS, JS, Node.js, and Express with appropriate preview modes.
+ * Handles HTML, CSS, and JS with a combined preview + console overlay.
  */
 (function () {
   "use strict";
@@ -21,7 +21,7 @@
       language: options.language || "html"
     };
 
-    // Determine which tabs to show
+    // Determine which tabs to show based on the language
     var languages = [];
     if (state.language === "html") languages = ["html", "css", "js"];
     else if (state.language === "css") languages = ["html", "css"];
@@ -38,7 +38,7 @@
         "</button>";
     }).join("");
 
-    // Build textareas
+    // Build textareas (hidden by default if CodeMirror takes over)
     var editorsHtml = languages.map(function (t) {
       var value = t === "html" ? state.html : t === "css" ? state.css : state.js;
       return '<textarea class="ide-editor" data-tab="' + t + '" spellcheck="false" ' +
@@ -47,7 +47,7 @@
         "</textarea>";
     }).join("");
 
-    // Build the panel
+    // Build the IDE DOM
     container.innerHTML =
       '<div class="ide-layout">' +
         '<div class="ide-panel">' +
@@ -61,7 +61,7 @@
           '</div>' +
         '</div>' +
         '<div class="ide-panel">' +
-          '<div class="ide-tabs"><span class="ide-tab active" style="cursor:default">Preview</span></div>' +
+          '<div class="ide-tabs"><span class="ide-tab active" style="cursor:default">Preview & Console</span></div>' +
           '<iframe class="ide-preview" sandbox="allow-scripts" title="Preview"></iframe>' +
         '</div>' +
       '</div>';
@@ -85,6 +85,7 @@
         cm.setSize("100%", "340px");
         editors[tab] = cm;
       } else {
+        // Fallback if CDN fails to load
         editors[tab] = {
           getValue: function () { return ta.value; },
           setValue: function (v) { ta.value = v; },
@@ -129,75 +130,6 @@
     // Preview builders
     // ============================================================
 
-    // Handles HTML + CSS + optional JS (real browser execution)
-    function buildFrontendPreview() {
-      var html = getVal("html");
-      var css = getVal("css");
-      var js = getVal("js");
-
-      if (!html || html.trim() === "") {
-        html = '<body><h1>Preview</h1><p>Your HTML will render here.</p></body>';
-      }
-
-      var isFull = /<html[\s>]/i.test(html);
-      var head = '<meta charset="utf-8">';
-      if (css) head += "<style>" + css + "</style>";
-
-      var body = html;
-      if (js) {
-        if (/<\/body>/i.test(body)) {
-          body = body.replace(/<\/body>/i, "<script>" + js + "<\/script></body>");
-        } else {
-          body += "<script>" + js + "<\/script>";
-        }
-      }
-
-      if (isFull) {
-        return html.replace(/<head>/, "<head>" + head);
-      }
-      return "<!DOCTYPE html><html><head>" + head + "</head>" + body + "</html>";
-    }
-
-    // Handles pure JavaScript (browser JS — show output of console.log + manual HTML)
-    function buildJsPreview() {
-      var html = getVal("html") || "<body><div id='app'></div></body>";
-      var userJs = getVal("js");
-
-      // Capture console.log and errors, show them in a floating panel
-      var instrumentation = `
-(function(){
-  var __log = [];
-  var _log = console.log, _err = console.error, _warn = console.warn;
-  function render() {
-    var el = document.getElementById('__console');
-    if (el) {
-      el.innerHTML = __log.map(function(l){
-        return '<div style="font-family:monospace;font-size:12px;color:#6ee7b7;padding:2px 0;border-bottom:1px solid #1e2a44;">&gt; ' + l + '</div>';
-      }).join('') || '<span style="color:#94a3b8;font-size:12px;">(no console output)</span>';
-    }
-  }
-  console.log = function(){ __log.push([].slice.call(arguments).map(function(a){return typeof a === 'object'?JSON.stringify(a):String(a);}).join(' ')); render(); _log.apply(console, arguments); };
-  console.warn = function(){ __log.push('⚠ ' + [].slice.call(arguments).join(' ')); render(); _warn.apply(console, arguments); };
-  console.error = function(){ __log.push('❌ ' + [].slice.call(arguments).join(' ')); render(); _err.apply(console, arguments); };
-  window.addEventListener('error', function(e) {
-    __log.push('❌ Error: ' + e.message);
-    render();
-  });
-  window.addEventListener('DOMContentLoaded', function() {
-    var box = document.createElement('div');
-    box.innerHTML = '<div style="position:fixed;bottom:0;left:0;right:0;max-height:40%;overflow-y:auto;background:#0A0F1C;border-top:1px solid #22d3ee;padding:8px 12px;z-index:99999;"><div style="color:#22d3ee;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Console Output</div><div id="__console"></div></div>';
-    document.body.appendChild(box);
-    render();
-  });
-})();
-`;
-
-      return "<!DOCTYPE html><html><head><meta charset='utf-8'><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;}</style></head>" +
-        html.replace(/<\/body>/i, "<script>" + instrumentation + "<\/script><script>" + userJs + "<\/script></body>") +
-        "</html>";
-    }
-
-    // Handles Node.js / Express — show a friendly message instead
     function buildBackendPreview() {
       return "<!DOCTYPE html><html><head><meta charset='utf-8'></head>" +
         "<body style='margin:0;padding:32px;font-family:system-ui,sans-serif;background:#0A0F1C;color:#E2E8F0;text-align:center;'>" +
@@ -214,11 +146,70 @@
         "</body></html>";
     }
 
-    // Pick the right preview strategy
     function buildPreviewDoc() {
       if (isBackend) return buildBackendPreview();
-      if (state.language === "javascript") return buildJsPreview();
-      return buildFrontendPreview();
+
+      var html = getVal("html");
+      var css = getVal("css");
+      var js = getVal("js");
+
+      // If no HTML, provide a default sandbox
+      if (!html || html.trim() === "") {
+        html = "<body>\n  <h1>Preview</h1>\n  <p>Your CSS and JS will render here.</p>\n  <div class='box'>Box</div>\n</body>";
+      }
+
+      // The instrumentation script: captures console logs and renders them in a floating panel
+      var instrumentation = `
+(function(){
+  var __log = [];
+  var _log = console.log, _err = console.error, _warn = console.warn;
+  
+  function render() {
+    var el = document.getElementById('__console');
+    if (el) {
+      el.innerHTML = __log.map(function(l){
+        return '<div style="font-family:monospace;font-size:12px;color:#6ee7b7;padding:4px 0;border-bottom:1px solid #1e2a44;word-wrap:break-word;">&gt; ' + l + '</div>';
+      }).join('') || '<span style="color:#94a3b8;font-size:12px;">(no console output yet)</span>';
+    }
+  }
+  
+  console.log = function(){ __log.push([].slice.call(arguments).map(function(a){return typeof a === 'object'?JSON.stringify(a):String(a);}).join(' ')); render(); _log.apply(console, arguments); };
+  console.warn = function(){ __log.push('⚠ ' + [].slice.call(arguments).join(' ')); render(); _warn.apply(console, arguments); };
+  console.error = function(){ __log.push('❌ ' + [].slice.call(arguments).join(' ')); render(); _err.apply(console, arguments); };
+  
+  window.addEventListener('error', function(e) {
+    __log.push('❌ Error: ' + e.message);
+    render();
+  });
+  
+  window.addEventListener('DOMContentLoaded', function() {
+    var box = document.createElement('div');
+    box.innerHTML = '<div style="position:fixed;bottom:0;left:0;right:0;max-height:40%;overflow-y:auto;background:#0A0F1C;border-top:1px solid #22d3ee;padding:12px 16px;z-index:99999;box-shadow:0 -4px 12px rgba(0,0,0,0.5);"><div style="color:#22d3ee;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22d3ee;"></span>Console</div><div id="__console"></div></div>';
+    document.body.appendChild(box);
+    render();
+  });
+})();
+`;
+
+      var head = '<meta charset="utf-8">';
+      if (css) head += "<style>" + css + "</style>";
+
+      var body = html;
+      
+      // Inject the instrumentation script FIRST (so it captures console calls)
+      // Then inject the user's JavaScript
+      if (/<\/body>/i.test(body)) {
+        body = body.replace(/<\/body>/i, "<script>" + instrumentation + "<\/script><script>" + js + "<\/script></body>");
+      } else {
+        body += "<script>" + instrumentation + "<\/script><script>" + js + "<\/script>";
+      }
+
+      var isFull = /<html[\s>]/i.test(body);
+      if (isFull) {
+        return body.replace(/<head>/, "<head>" + head);
+      }
+      
+      return "<!DOCTYPE html><html><head>" + head + "</head>" + body + "</html>";
     }
 
     // Action: Run

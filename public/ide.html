@@ -21,7 +21,7 @@
       <header class="section-header">
         <p class="eyebrow">Playground</p>
         <h1>Code Playground</h1>
-        <p>Write HTML, CSS, and JavaScript. See the result live.</p>
+        <p>Write HTML, CSS, and JavaScript. See the result live and check your console output.</p>
       </header>
 
       <div id="ide-playground"></div>
@@ -30,28 +30,32 @@
 
   <footer id="site-footer" class="site-footer"></footer>
 
+  <!-- CodeMirror Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
 
+  <!-- App Scripts -->
   <script src="/js/ui.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/partials.js"></script>
   <script src="/js/auth.js"></script>
   <script src="/js/ide.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- Playground Initialization -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       window.KICA.ide.create({
         containerId: "ide-playground",
-        language: "html",
+        language: "html", // Using "html" gives us all 3 tabs: index.html, styles.css, app.js
         starterHtml: "<body>\n  <h1>Hello, World!</h1>\n  <p>Try editing me.</p>\n</body>",
-        starterCss: "body {\n  font-family: sans-serif;\n  padding: 2rem;\n}\n",
-        starterJs: "console.log(\"Hello from the playground!\");\n"
+        starterCss: "body {\n  font-family: sans-serif;\n  padding: 2rem;\n  background: #f8fafc;\n  color: #0f172a;\n}\n\nh1 {\n  color: #2563eb;\n}",
+        starterJs: "console.log('Hello from the playground!');\nconsole.log('Try editing this JavaScript.');\n"
       });
     });
   </script>
-  <script src="/js/main.js"></script>
 </body>
 </html>
