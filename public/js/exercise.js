@@ -10,14 +10,11 @@
 
   async function load() {
     var slug = getSlug();
-    var mount = document.getElementById("exercise-mount");
     var brief = document.getElementById("exercise-brief");
     var ideMount = document.getElementById("ide-mount");
 
-    if (!mount) return; // Not on the exercise page
-    
     if (!brief || !ideMount) {
-      if (mount) mount.innerHTML = '<p style="color:var(--brand-danger)">Page layout error: missing containers.</p>';
+      console.error("[exercise] Missing #exercise-brief or #ide-mount");
       return;
     }
 
@@ -30,7 +27,7 @@
       var res = await window.KICA.api.get("/exercises/" + slug);
       exercise = res.exercise;
 
-      // Render the brief
+      // Render brief
       var hintsHtml = "";
       if (exercise.hints && exercise.hints.length) {
         hintsHtml =
