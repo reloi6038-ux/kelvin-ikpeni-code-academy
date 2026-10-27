@@ -10,6 +10,10 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const { getCourseProgress } = require("./completionService");
 
+// Official production URL — used everywhere when BASE_URL isn't set
+const OFFICIAL_BASE_URL =
+  process.env.BASE_URL || "https://kelvin-ikpeni-code-academy.onrender.com";
+
 /**
  * Issues a certificate if:
  *  - Course is complete (all lessons + quizzes).
@@ -61,7 +65,6 @@ async function issueCertificateIfEligible(userId, courseId) {
     console.log(`🎓 Certificate issued: ${certificateId} → ${user.email} (${course.title})`);
     return cert;
   } catch (err) {
-    // Unique constraint race — refetch
     if (err.code === 11000) {
       return Certificate.findOne({ user: userId, course: courseId });
     }
@@ -94,9 +97,14 @@ async function verifyCertificate(certificateId) {
       certificateId: cert.certificateId,
       recipientName: cert.recipientName,
       courseTitle: cert.courseTitle,
-      issuedAt: cert.issuedAt
+      issuedAt: cert.issuedAt,
+      verifyUrl: `${OFFICIAL_BASE_URL}/certificate-verify.html?id=${cert.certificateId}`
     }
   };
 }
 
-module.exports = { issueCertificateIfEligible, verifyCertificate };
+module.exports = {
+  issueCertificateIfEligible,
+  verifyCertificate,
+  OFFICIAL_BASE_URL
+};
