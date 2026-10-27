@@ -128,6 +128,25 @@ const courses = [
     icon: "☁️",
     order: 5,
     outcomes: ["Configure env vars", "Read logs", "Run health checks"]
+  },
+
+  // ---------- CAPSTONE ----------
+  {
+    title: "Full-Stack Capstone",
+    description: "Build and deploy a production-ready application from scratch. Combine everything you've learned: frontend, backend, database, authentication, and deployment.",
+    summary: "Build and deploy a complete full-stack application.",
+    track: "capstone",
+    difficulty: "advanced",
+    estimatedHours: 20,
+    lessonsCount: 10,
+    icon: "🏆",
+    order: 10,
+    outcomes: [
+      "Architect a full-stack application",
+      "Build secure REST APIs",
+      "Connect a frontend to a backend",
+      "Deploy to production with CI/CD"
+    ]
   }
 ];
 

@@ -17,6 +17,9 @@ const { seedLessons } = require("./lessons.seed");
 const { seedExercises } = require("./exercises.seed");
 const { seedQuizzes } = require("./quizzes.seed");
 const { seedProjects } = require("./projects.seed");
+const { seedCapstoneLessons } = require("./capstone-lessons.seed");
+const { seedCapstoneExercises } = require("./capstone-exercises.seed");
+const { seedCapstoneQuiz } = require("./capstone-quiz.seed");
 
 // Targeted seeders (per-course)
 const { seedIntroLessons } = require("./intro-lessons.seed");
@@ -179,6 +182,15 @@ async function main() {
 
   console.log("\n🚀 Seeding projects...\n");
   await seedProjects();
+
+    console.log("\n📖 Seeding Full-Stack Capstone lessons...\n");
+  await seedCapstoneLessons();
+
+  console.log("\n🧪 Seeding Full-Stack Capstone exercises...\n");
+  await seedCapstoneExercises();
+
+  console.log("\n📝 Seeding Full-Stack Capstone quiz...\n");
+  await seedCapstoneQuiz();
 
   const totalUsers = await User.countDocuments();
   const totalCourses = await Course.countDocuments();
