@@ -1,7 +1,5 @@
 /**
  * Kelvin Ikpeni Code Academy — Certificate service
- * - issueCertificateIfEligible: called after course completion
- * - verifyCertificate: public verification
  */
 "use strict";
 
@@ -9,18 +7,12 @@ const Certificate = require("../models/Certificate");
 const Course = require("../models/Course");
 const User = require("../models/User");
 const { getCourseProgress } = require("./completionService");
+const { sendCertificateEmail } = require("./emailService");
+const { buildCertificatePdfBuffer } = require("./certificatePdf");
 
-// Official production URL — used everywhere when BASE_URL isn't set
 const OFFICIAL_BASE_URL =
   process.env.BASE_URL || "https://kelvin-ikpeni-code-academy.onrender.com";
 
-/**
- * Issues a certificate if:
- *  - Course is complete (all lessons + quizzes).
- *  - No certificate already exists for (user, course).
- *
- * Returns the certificate (existing or newly issued) or null if not eligible.
- */
 async function issueCertificateIfEligible(userId, courseId) {
   const status = await getCourseProgress(userId, courseId);
   if (!status.isComplete) return null;
@@ -34,7 +26,6 @@ async function issueCertificateIfEligible(userId, courseId) {
   ]);
   if (!user || !course) return null;
 
-  // Generate a unique ID (retry on collision — astronomically rare)
   let certificateId;
   let attempts = 0;
   do {
@@ -63,6 +54,19 @@ async function issueCertificateIfEligible(userId, courseId) {
       verificationHash
     });
     console.log(`🎓 Certificate issued: ${certificateId} → ${user.email} (${course.title})`);
+
+    // Email the certificate (non-blocking)
+    (async () => {
+      try {
+        const pdfBuffer = await buildCertificatePdfBuffer(cert);
+        if (user.email) {
+          await sendCertificateEmail(user.email, user.name, course.title, pdfBuffer, cert.certificateId);
+        }
+      } catch (err) {
+        console.error("Certificate email failed:", err.message);
+      }
+    })();
+
     return cert;
   } catch (err) {
     if (err.code === 11000) {
@@ -72,23 +76,14 @@ async function issueCertificateIfEligible(userId, courseId) {
   }
 }
 
-/**
- * Public verification — returns a safe object (no email, no hash).
- */
 async function verifyCertificate(certificateId) {
   const cert = await Certificate.findOne({ certificateId })
     .populate("course", "title")
     .populate("user", "name");
 
-  if (!cert) {
-    return { valid: false, reason: "Certificate not found." };
-  }
+  if (!cert) return { valid: false, reason: "Certificate not found." };
   if (cert.revokedAt) {
-    return {
-      valid: false,
-      reason: "Certificate has been revoked.",
-      revokedAt: cert.revokedAt
-    };
+    return { valid: false, reason: "Certificate has been revoked.", revokedAt: cert.revokedAt };
   }
 
   return {

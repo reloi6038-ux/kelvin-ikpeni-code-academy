@@ -1,8 +1,12 @@
+/**
+ * Kelvin Ikpeni Code Academy — Auth controller
+ */
 "use strict";
 
 const User = require("../models/User");
 const PasswordResetToken = require("../models/PasswordResetToken");
 const logger = require("../utils/logger");
+const { sendPasswordResetEmail } = require("../services/emailService");
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 8;
@@ -85,12 +89,15 @@ async function forgotPassword(req, res) {
 
   await PasswordResetToken.create({ user: user._id, tokenHash, expiresAt, requestedFromIp: req.ip || "" });
 
-  const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+  const baseUrl = process.env.BASE_URL || "https://kelvin-ikpeni-code-academy.onrender.com";
   const resetUrl = `${baseUrl}/reset-password.html?token=${plainToken}`;
 
-  logger.info(`Password reset requested for ${user.email}`);
-  logger.info(`Reset link (DEV ONLY): ${resetUrl}`);
+  // Send email (non-blocking — never fail the request if email fails)
+  sendPasswordResetEmail(user.email, resetUrl, user.name).catch((err) => {
+    console.error("Password reset email failed:", err.message);
+  });
 
+  logger.info(`Password reset requested for ${user.email}`);
   res.json(genericOk);
 }
 

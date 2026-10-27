@@ -4,6 +4,7 @@
 "use strict";
 
 const Contact = require("../models/Contact");
+const { sendContactNotification, sendContactConfirmation } = require("../services/emailService");
 
 async function submitContact(req, res) {
   const { name, email, subject, message } = req.body || {};
@@ -27,6 +28,18 @@ async function submitContact(req, res) {
   });
 
   console.log(`📬 Contact message from ${contact.email}: "${contact.subject}"`);
+
+  // Fire emails (non-blocking)
+  sendContactNotification({
+    name: contact.name,
+    email: contact.email,
+    subject: contact.subject,
+    message: contact.message
+  }).catch((err) => console.error("Contact notification failed:", err.message));
+
+  sendContactConfirmation(contact.email, contact.name).catch((err) =>
+    console.error("Contact confirmation failed:", err.message)
+  );
 
   res.status(201).json({
     status: "success",
